@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CiMon - Chili Monitoring</string>
+
+<!--    bottom navbar-->
+    <string name="header_home">Home</string>
+    <string name="header_tracking">Tracking</string>
+    <string name="header_detection">Detection</string>
+    <string name="header_forum">Forum</string>
+    <string name="header_blog">Blog</string>
+
+</resources>
