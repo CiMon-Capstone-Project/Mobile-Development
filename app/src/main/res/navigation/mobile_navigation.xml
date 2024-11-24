@@ -15,13 +15,13 @@
         android:id="@+id/navigation_tracking"
         android:name="com.example.cimon_chilimonitoring.ui.detection.DetectionFragment"
         android:label="@string/header_tracking"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_detection" />
 
     <fragment
         android:id="@+id/navigation_detection"
         android:name="com.example.cimon_chilimonitoring.ui.notifications.TrackingFragment"
         android:label="@string/header_detection"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_tracking" />
     <fragment
         android:id="@+id/navigation_forum"
         android:name="com.example.cimon_chilimonitoring.ui.forum.ForumFragment"
