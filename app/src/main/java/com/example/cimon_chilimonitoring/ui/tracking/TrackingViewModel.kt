@@ -1,4 +1,4 @@
-package com.example.cimon_chilimonitoring.ui.notifications
+package com.example.cimon_chilimonitoring.ui.tracking
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
