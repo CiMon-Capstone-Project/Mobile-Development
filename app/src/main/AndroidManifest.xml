@@ -38,13 +38,17 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".ui.detection.history.HistoryActivity"
+            android:name=".ui.chatbot.ChatbotActivity"
             android:exported="false"
             android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
         <activity
+            android:name=".ui.detection.history.HistoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
+        <activity
             android:name=".ui.result.ResultActivity"
             android:exported="false"
-            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -12,6 +12,7 @@
     <string name="tflitevision_is_not_initialized_yet">TF Lite belum di-inisialisasi</string>
 
     <string name="txt_instruction">Tekan tombol dibawah lalu arahkan kamera pada cabai yang ingin diidentifikasi seperti gambar berikut</string>
+    <string name="txt_instruction2">Tekan tombol dibawah lalu arahkan kamera pada cabai yang ingin diidentifikasi seperti gambar berikut</string>
 
 
     <!-- nanti dihapus kalo udh ada model   -->

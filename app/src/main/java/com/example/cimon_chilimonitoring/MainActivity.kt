@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
+import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -49,11 +50,17 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_action_bar, menu)
 
         val historyIcon = menu.findItem(R.id.menu_history)
+        val chatbotIcon = menu.findItem(R.id.menu_chat)
         val searchView = historyIcon?.actionView as? SearchView
 
         // icon clicked
         historyIcon?.setOnMenuItemClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            true
+        }
+
+        chatbotIcon?.setOnMenuItemClickListener {
+            startActivity(Intent(this, ChatbotActivity::class.java))
             true
         }
 
