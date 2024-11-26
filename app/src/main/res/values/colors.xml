@@ -13,5 +13,6 @@
     <color name="light_green">#99BC85</color>
     <color name="gray_green">#BFD8AF</color>
     <color name="gray">#DCDCDC</color>
+    <color name="dark_gray">#7D8C9A</color>
     <color name="rose_red">#EE4E4E</color>
 </resources>
