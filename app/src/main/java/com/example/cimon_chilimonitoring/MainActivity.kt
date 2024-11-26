@@ -1,9 +1,9 @@
 package com.example.cimon_chilimonitoring
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
@@ -12,9 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
+import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.color.DynamicColors
-import com.google.android.material.elevation.SurfaceColors
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,16 +48,23 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_action_bar, menu)
 
-        val search = menu.findItem(R.id.menu_chat)
-        val searchView = search?.actionView as? SearchView
+        val historyIcon = menu.findItem(R.id.menu_history)
+        val searchView = historyIcon?.actionView as? SearchView
 
-        // disable search button in home fragment, settings, fav
+        // icon clicked
+        historyIcon?.setOnMenuItemClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+            true
+        }
+
+        // disable top bar icon
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // ngilangin search di fragment home, settings, fav
-            search?.isVisible = destination.id != R.id.navigation_home
-//                    && destination.id != R.id.navigation_settings
-//                    && destination.id != R.id.navigation_favorite
+            historyIcon?.isVisible = destination.id != R.id.navigation_home
+                    && destination.id != R.id.navigation_tracking
+                    && destination.id != R.id.navigation_forum
+                    && destination.id != R.id.navigation_blog
         }
         return true
     }

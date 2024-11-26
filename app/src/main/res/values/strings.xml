@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">CiMon - Chili Monitoring</string>
 
-<!--    bottom navbar-->
+    <!--    bottom navbar-->
     <string name="header_home">Home</string>
     <string name="header_tracking">Tracking</string>
     <string name="header_detection">Detection</string>
     <string name="header_forum">Forum</string>
     <string name="header_blog">Blog</string>
+
+    <string name="image_classifier_failed">Klasifikasi gambar gagal dijalankan</string>
+    <string name="tflitevision_is_not_initialized_yet">TF Lite belum di-inisialisasi</string>
+
+
+    <!-- nanti dihapus kalo udh ada model   -->
+    <string name="cancer_detected">In conclusion, the results of the analysis state that the image is <b>Cancer</b>.</string>
+    <string name="no_cancer_detected">In conclusion, the results of the analysis state that the image is <b>Non-Cancer</b></string>
 
 </resources>
