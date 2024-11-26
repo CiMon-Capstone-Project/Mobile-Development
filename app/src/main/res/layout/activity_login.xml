@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/banner_1"/>
+        android:src="@drawable/banner_hero_1"/>
 
     <LinearLayout
         android:id="@+id/div_greeting_login"
