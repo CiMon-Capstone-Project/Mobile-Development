@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -18,6 +20,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        //load the values from .properties file
+        val keystoreFile = project.rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+
+        //return empty key in case something goes wrong
+        val geminiApiKey = properties.getProperty("GEMINI_API_KEY") ?: ""
+        buildConfigField(
+            type = "String",
+            name = "GEMINI_API_KEY",
+            value = geminiApiKey
+        )
     }
 
     buildTypes {
@@ -39,6 +54,7 @@ android {
     buildFeatures {
         viewBinding = true
         mlModelBinding = true
+        buildConfig = true
     }
 }
 
@@ -92,4 +108,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-tflite-gpu:16.2.0")
     implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.2")
     implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+
+    // chatbot
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }

@@ -47,8 +47,8 @@ class HomeFragment : Fragment() {
 
         tabLayout.setupWithViewPager(viewPager, true)
         val stringList = ArrayList<Int>()
-        stringList.add(R.drawable.banner_1)
-        stringList.add(R.drawable.banner_2)
+        stringList.add(R.drawable.banner_hero_1)
+        stringList.add(R.drawable.banner_hero_2)
         stringList.add(R.drawable.banner_3)
         viewPager.adapter = SliderAdapter(requireContext(), stringList)
         tabLayout.setupWithViewPager(viewPager, true)

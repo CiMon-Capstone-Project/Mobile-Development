@@ -20,7 +20,7 @@
             android:layout_height="160dp"
             android:contentDescription="hero banner"
             android:scaleType="centerCrop"
-            android:src="@drawable/banner_1"
+            android:src="@drawable/banner_hero_1"
             android:id="@+id/iv_banner"/>
 
 
