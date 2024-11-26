@@ -45,7 +45,7 @@
                 android:layout_margin="@dimen/margin_small"
                 android:fontFamily="@font/plus_jakarta_sans"
                 android:textColor="@color/black"
-                android:text="Tekan tombol dibawah lalu arahkan kamera pada cabe yang ingin diidentifikasi seperti gambar berikut"
+                android:text="@string/txt_instruction"
                 android:textAlignment="center"
                 android:textSize="@dimen/bold_text"
                 app:layout_constraintStart_toStartOf="@+id/iv_placeholder_detection"
