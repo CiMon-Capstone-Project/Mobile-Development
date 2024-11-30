@@ -35,7 +35,9 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Hello!"
-            android:textSize="@dimen/header_text"
+            android:textColor="@color/black"
+            android:textSize="@dimen/bold_text"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
             android:textStyle="bold"/>
 
         <TextView
@@ -44,7 +46,9 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Enter your username and password to login"
+            android:textColor="@color/black"
             android:textSize="@dimen/normal_text"
+            android:fontFamily="@font/plus_jakarta_sans"
             android:textStyle="bold"/>
 
     </LinearLayout>
@@ -55,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
-        android:alpha="0"
+        android:alpha="100"
         android:text="Email"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,15 +73,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email"
-        app:startIconDrawable="@drawable/ic_baseline_email_24"
-        tools:alpha="100">
+        app:startIconDrawable="@drawable/ic_baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_email"
+            android:id="@+id/ed_email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -91,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:alpha="0"
+        android:alpha="100"
         android:text="Password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:alpha="0"
+        android:alpha="100"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +131,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:alpha="0"
+        android:alpha="100"
         android:backgroundTint="@color/dark_gray"
         android:text="Login"
         android:textSize="@dimen/normal_text"
@@ -152,7 +154,9 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Dont have an account?"
-           android:textSize="@dimen/normal_text"/>
+           android:textColor="@color/black"
+           android:textSize="@dimen/normal_text"
+           android:fontFamily="@font/plus_jakarta_sans"/>
 
        <TextView
            android:id="@+id/btn_txt_register"
@@ -160,7 +164,9 @@
            android:layout_height="wrap_content"
            android:layout_marginStart="4dp"
            android:text="Register"
+           android:textColor="@color/black"
            android:textSize="@dimen/normal_text"
+           android:fontFamily="@font/plus_jakarta_sans"
            android:textStyle="bold"
            android:clickable="true"/>
    </LinearLayout>

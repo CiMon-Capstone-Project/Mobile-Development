@@ -4,9 +4,17 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,12 +22,18 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
+import com.example.cimon_chilimonitoring.ui.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +57,17 @@ class MainActivity : AppCompatActivity() {
 
         // action bar color
         supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+
+        // firebase
+        auth = Firebase.auth
+        val firebaseUser = auth.currentUser
+
+        if (firebaseUser == null) {
+            // Not signed in, launch the Login activity
+            startActivity(Intent(this, WelcomeActivity::class.java))
+            finish()
+            return
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,7 +76,8 @@ class MainActivity : AppCompatActivity() {
 
         val historyIcon = menu.findItem(R.id.menu_history)
         val chatbotIcon = menu.findItem(R.id.menu_chat)
-        val searchView = historyIcon?.actionView as? SearchView
+        val accountIcon = menu.findItem(R.id.menu_account)
+//        val searchView = historyIcon?.actionView as? SearchView
 
         // icon clicked
         historyIcon?.setOnMenuItemClickListener {
@@ -64,6 +90,11 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        accountIcon?.setOnMenuItemClickListener {
+            signOut()
+            true
+        }
+
         // disable top bar icon
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -72,7 +103,24 @@ class MainActivity : AppCompatActivity() {
                     && destination.id != R.id.navigation_tracking
                     && destination.id != R.id.navigation_forum
                     && destination.id != R.id.navigation_blog
+
+            chatbotIcon?.isVisible = destination.id != R.id.navigation_home
+
+            accountIcon?.isVisible = destination.id != R.id.navigation_detection
+                    && destination.id != R.id.navigation_tracking
+                    && destination.id != R.id.navigation_forum
+                    && destination.id != R.id.navigation_blog
         }
         return true
+    }
+
+    private fun signOut() {
+        lifecycleScope.launch {
+            val credentialManager = CredentialManager.create(this@MainActivity)
+            auth.signOut()
+            credentialManager.clearCredentialState(ClearCredentialStateRequest())
+            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+            finish()
+        }
     }
 }

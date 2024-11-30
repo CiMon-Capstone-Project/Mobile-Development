@@ -40,11 +40,11 @@ class ResultActivity : AppCompatActivity() {
         }
         with(binding){
             tvResultText.text = confidant
-            if (result == "Cancer"){
-                tvResultConclusion.text = getText(R.string.cancer_detected)
-            } else {
-                tvResultConclusion.text = getText(R.string.no_cancer_detected)
-            }
+//            if (result == "Cancer"){
+//                tvResultConclusion.text = getText(R.string.cancer_detected)
+//            } else {
+//                tvResultConclusion.text = getText(R.string.no_cancer_detected)
+//            }
 
             btnSaveAnalysis.setOnClickListener {
                 val uri = intent.getStringExtra(EXTRA_IMAGE_URI)

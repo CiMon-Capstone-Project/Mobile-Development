@@ -19,4 +19,6 @@
     <string name="cancer_detected">In conclusion, the results of the analysis state that the image is <b>Cancer</b>.</string>
     <string name="no_cancer_detected">In conclusion, the results of the analysis state that the image is <b>Non-Cancer</b></string>
 
+    <string name="your_web_client_id">246037319307-j6aujt1vngfqun6je2ttjrosuvogluvp.apps.googleusercontent.com</string>
+
 </resources>

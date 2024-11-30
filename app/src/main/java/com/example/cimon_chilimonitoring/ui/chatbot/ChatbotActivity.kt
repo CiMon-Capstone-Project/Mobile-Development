@@ -12,18 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cimon_chilimonitoring.BuildConfig
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityChatbotBinding
+import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.LOADING_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.RECEIVE_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.SEND_ID
 import com.google.ai.client.generativeai.Chat
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ChatbotActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatbotBinding
     private lateinit var chatAdapter: MessagingAdapter
+    private val LOADING_MESSAGE = "..."
 
-    lateinit var chat : Chat
     //viewmodel
     private lateinit var viewModel: ChatbotViewModel
 
@@ -34,6 +36,8 @@ class ChatbotActivity : AppCompatActivity() {
         binding = ActivityChatbotBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         viewModel = ViewModelProvider(this).get(ChatbotViewModel::class.java)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -42,15 +46,29 @@ class ChatbotActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnSend.setOnClickListener{
+        binding.btnSend.setOnClickListener {
             val prompt = binding.edQuestion.text.toString()
+            val message = Message(prompt, SEND_ID)
 
-            viewModel.sendMessage(prompt)
+            chatAdapter.addMessage(message)
             binding.edQuestion.text?.clear()
+            binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+
+            lifecycleScope.launch {
+                delay(400)
+                val loadingMessage = Message(LOADING_MESSAGE, LOADING_ID)
+                chatAdapter.addMessage(loadingMessage)
+                viewModel.sendMessage(prompt)
+            }
         }
 
-//        observeViewModel()
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        observeViewModel()
         setupRecyclerView()
+        sendInitialMessage()
     }
 
     private fun setupRecyclerView() {
@@ -61,10 +79,27 @@ class ChatbotActivity : AppCompatActivity() {
         }
     }
 
-//    private fun observeViewModel() {
-//        viewModel.generatedContent.observe(this) { response ->
-//            chatAdapter.addMessage(message)
-//            binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
-//        }
-//    }
+    private fun observeViewModel() {
+        viewModel.generatedContent.observe(this) { response ->
+            val loadingIndex = chatAdapter.messagesList.indexOfFirst { it.id == LOADING_ID }
+            if (loadingIndex != -1) {
+                chatAdapter.messagesList.removeAt(loadingIndex)
+                chatAdapter.notifyItemRemoved(loadingIndex)
+            }
+            val message = Message(response, RECEIVE_ID)
+            chatAdapter.addMessage(message)
+            binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+        }
+    }
+
+    private fun sendInitialMessage() {
+        val initialPrompt = "Halo, bisa saya bertanya sesuatu?"
+        val message = Message(initialPrompt, SEND_ID)
+        chatAdapter.addMessage(message)
+        binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+
+        val loadingMessage = Message(LOADING_MESSAGE, LOADING_ID)
+        chatAdapter.addMessage(loadingMessage)
+        viewModel.sendMessage(initialPrompt)
+    }
 }

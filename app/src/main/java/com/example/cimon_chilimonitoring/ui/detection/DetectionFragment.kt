@@ -107,9 +107,11 @@ class DetectionFragment : Fragment() {
         val destinationUri =
             Uri.fromFile(File(requireContext().cacheDir, "croppedImage_${System.currentTimeMillis()}.jpg"))
         val options = UCrop.Options().apply {
-            setCompressionQuality(80)
-            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f), AspectRatio("3:4", 3f, 4f), AspectRatio("Original", 0f, 0f))
-            setFreeStyleCropEnabled(true)
+//            setCompressionQuality(80)
+            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f))
+            withMaxResultSize(256, 256)
+//            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f), AspectRatio("3:4", 3f, 4f), AspectRatio("Original", 0f, 0f))
+//            setFreeStyleCropEnabled(true)
         }
         UCrop.of(uri, destinationUri)
             .withOptions(options)
@@ -173,11 +175,13 @@ class DetectionFragment : Fragment() {
                 override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
                     requireActivity().runOnUiThread {
                         val intent = Intent(requireContext(), ResultActivity::class.java)
+                        Log.d("DetectionFragment", "Results: $results")
                         intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, uri.toString())
                         intent.putExtra(
                             ResultActivity.EXTRA_RESULT,
                             results?.let { it[0].categories[0].label })
-                        intent.putExtra(ResultActivity.EXTRA_CONFIDENCE, results?.let {
+                        intent.putExtra(ResultActivity.EXTRA_CONFIDENCE,
+                            results?.let {
                             val sortedCategories =
                                 it[0].categories.sortedByDescending { it?.score }
                             val displayResult =
@@ -187,6 +191,7 @@ class DetectionFragment : Fragment() {
                                 }
                             displayResult
                         })
+
 
                         // Save result to database
 //                        results?.let {
