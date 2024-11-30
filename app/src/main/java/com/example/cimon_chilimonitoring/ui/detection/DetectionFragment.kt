@@ -107,7 +107,7 @@ class DetectionFragment : Fragment() {
         val destinationUri =
             Uri.fromFile(File(requireContext().cacheDir, "croppedImage_${System.currentTimeMillis()}.jpg"))
         val options = UCrop.Options().apply {
-//            setCompressionQuality(80)
+            setCompressionQuality(90)
             setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f))
             withMaxResultSize(256, 256)
 //            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f), AspectRatio("3:4", 3f, 4f), AspectRatio("Original", 0f, 0f))
@@ -182,13 +182,17 @@ class DetectionFragment : Fragment() {
                             results?.let { it[0].categories[0].label })
                         intent.putExtra(ResultActivity.EXTRA_CONFIDENCE,
                             results?.let {
-                            val sortedCategories =
-                                it[0].categories.sortedByDescending { it?.score }
-                            val displayResult =
-                                sortedCategories.joinToString("\n") {
-                                    "${it.label} " + NumberFormat.getPercentInstance()
-                                        .format(it.score).trim()
-                                }
+//                            val sortedCategories =
+//                                it[0].categories.sortedByDescending { it?.score }
+//                            val displayResult =
+//                                sortedCategories.joinToString("\n") {
+//                                    "${it.label} " + NumberFormat.getPercentInstance()
+//                                        .format(it.score).trim()
+//                                }
+                                val highestCategory = it[0].categories.maxByOrNull { it.score }
+                                val displayResult = "${highestCategory?.label} " + NumberFormat.getPercentInstance()
+                                    .format(highestCategory?.score).trim()
+
                             displayResult
                         })
 

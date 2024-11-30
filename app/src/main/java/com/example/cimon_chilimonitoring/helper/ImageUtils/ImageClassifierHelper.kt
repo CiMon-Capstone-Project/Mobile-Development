@@ -116,8 +116,9 @@ class ImageClassifierHelper(
             }.copy(Bitmap.Config.ARGB_8888, true)
             Log.d(TAG, "Bitmap dimensions: ${bitmap.width} x ${bitmap.height}")
             val imageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
-                .add(NormalizeOp(0.0f, 0.257f))
+//                .add(ResizeOp(256, 256, ResizeOp.ResizeMethod.BILINEAR))
+//                .add(NormalizeOp(0.0f, 0.257f))
+                .add(NormalizeOp(0.0f, 1f))
                 .add(CastOp(DataType.FLOAT32))
                 .build()
 

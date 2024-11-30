@@ -1,6 +1,5 @@
 package com.example.cimon_chilimonitoring.ui.welcome
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -73,7 +72,7 @@ class WelcomeActivity : AppCompatActivity() {
 
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(getString(R.string.your_web_client_id))
+            .setServerClientId(getString(R.string.web_client_id))
             .build()
 
         val request = GetCredentialRequest.Builder() //import from androidx.CredentialManager
