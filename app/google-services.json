@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "246037319307",
+    "project_id": "chili-monitoring-2024",
+    "storage_bucket": "chili-monitoring-2024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246037319307:android:6d1e319c08d0b1b1300e8e",
+        "android_client_info": {
+          "package_name": "com.example.cimon_chilimonitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246037319307-mumbumvvu4cptddldnlm1j15ofunsoqq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cimon_chilimonitoring",
+            "certificate_hash": "3b608de946ec4faeaee4265c614e186766b15f30"
+          }
+        },
+        {
+          "client_id": "246037319307-j6aujt1vngfqun6je2ttjrosuvogluvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu4GEcMYLAndAGly_SpTNAhvgM637ywTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246037319307-j6aujt1vngfqun6je2ttjrosuvogluvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
