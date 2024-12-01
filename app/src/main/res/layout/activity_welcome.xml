@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/iv_welcome"
-            android:layout_width="250dp"
+            android:layout_width="350dp"
             android:layout_height="200dp"
             android:layout_marginTop="25dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@id/div_greeting"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/dark_gray"/>
+            android:backgroundTint="@color/green"/>
 
         <Button
             android:id="@+id/btn_welcome_register"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_google_drak_gray"
+            android:drawableLeft="@drawable/ic_google_colored_24"
             android:text="Google"
             android:textColor="@color/black"
             android:textSize="14sp"
