@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.blog.detail.BlogDetailActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:title="Detail"
+        app:navigationIcon="@drawable/ic_arrow_back_ios_24"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/iv_detail_placeholder"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/banner_placeholder" />
+
+    <TextView
+        android:id="@+id/tv_detail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="@dimen/header_text"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:paddingTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="@dimen/normal_text"
+        android:fontFamily="@font/plus_jakarta_sans"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:paddingTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/plus_jakarta_sans"
+        android:paddingTop="20dp"
+        android:text="Source : "
+        android:textSize="@dimen/normal_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_date" />
+
+    <TextView
+        android:id="@+id/tv_detail_source_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/plus_jakarta_sans"
+        android:paddingTop="20dp"
+        android:text="Kompas"
+        android:textSize="@dimen/normal_text"
+        app:layout_constraintStart_toEndOf="@+id/tv_detail_source"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_date" />
+
+    <TextView
+        android:id="@+id/tv_detail_source_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/plus_jakarta_sans"
+        android:paddingTop="14dp"
+        android:text="12 November 2024"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_source" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

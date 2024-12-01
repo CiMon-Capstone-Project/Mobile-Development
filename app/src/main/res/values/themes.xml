@@ -21,6 +21,11 @@
         <item name="android:outlineSpotShadowColor" tools:ignore="NewApi">@android:color/transparent</item>
         <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
+
+        <!--  animation-->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
     </style>
 
     <!-- No ActionBar -->
@@ -48,4 +53,5 @@
     <style name="Theme.CiMonChiliMonitoring.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.CiMonChiliMonitoring.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.blog.BlogFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_blog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:paddingBottom="50dp"
+        tools:listitem="@layout/item_card_view_blog" />
 
 </FrameLayout>

@@ -21,9 +21,12 @@
         android:theme="@style/Theme.CiMonChiliMonitoring"
         tools:targetApi="31">
         <activity
+            android:name=".ui.blog.detail.BlogDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.forum.addPost.AddPostActivity"
             android:exported="false"
-            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

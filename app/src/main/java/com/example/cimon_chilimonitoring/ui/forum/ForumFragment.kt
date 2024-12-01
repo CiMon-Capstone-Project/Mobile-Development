@@ -1,5 +1,6 @@
 package com.example.cimon_chilimonitoring.ui.forum
 
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.FragmentDetectionBinding
 import com.example.cimon_chilimonitoring.databinding.FragmentForumBinding
+import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostActivity
 
 class ForumFragment : Fragment() {
@@ -28,7 +30,9 @@ class ForumFragment : Fragment() {
 
         with(binding){
             fabAddPost.setOnClickListener {
-                startActivity(Intent(requireContext(), AddPostActivity::class.java))
+                val intent = Intent(requireContext(), AddPostActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+                startActivity(intent, options.toBundle())
             }
         }
 

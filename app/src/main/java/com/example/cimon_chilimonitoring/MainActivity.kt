@@ -1,5 +1,6 @@
 package com.example.cimon_chilimonitoring
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -81,12 +82,16 @@ class MainActivity : AppCompatActivity() {
 
         // icon clicked
         historyIcon?.setOnMenuItemClickListener {
-            startActivity(Intent(this, HistoryActivity::class.java))
+            val intent = Intent(this, HistoryActivity::class.java)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this)
+            startActivity(intent, options.toBundle())
             true
         }
 
         chatbotIcon?.setOnMenuItemClickListener {
-            startActivity(Intent(this, ChatbotActivity::class.java))
+            val intent = Intent(this, ChatbotActivity::class.java)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this)
+            startActivity(intent, options.toBundle())
             true
         }
 
