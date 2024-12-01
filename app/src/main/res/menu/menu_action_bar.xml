@@ -14,4 +14,12 @@
         android:title="Chat"
         android:icon="@drawable/ic_chat_24"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_account"
+        android:orderInCategory="100"
+        android:iconTint="@color/black"
+        android:title="Account"
+        android:icon="@drawable/ic_baseline_person_24"
+        app:showAsAction="ifRoom" />
 </menu>

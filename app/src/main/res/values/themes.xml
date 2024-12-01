@@ -21,6 +21,11 @@
         <item name="android:outlineSpotShadowColor" tools:ignore="NewApi">@android:color/transparent</item>
         <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
+
+        <!--  animation-->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
     </style>
 
     <!-- No ActionBar -->
@@ -28,7 +33,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -37,6 +42,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- others modifier -->
         <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@android:style/TextAppearance">
@@ -47,4 +53,5 @@
     <style name="Theme.CiMonChiliMonitoring.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.CiMonChiliMonitoring.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

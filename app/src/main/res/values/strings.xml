@@ -16,7 +16,12 @@
 
 
     <!-- nanti dihapus kalo udh ada model   -->
-    <string name="cancer_detected">In conclusion, the results of the analysis state that the image is <b>Cancer</b>.</string>
-    <string name="no_cancer_detected">In conclusion, the results of the analysis state that the image is <b>Non-Cancer</b></string>
+    <string name="analyze_cercospora">Daun tersebut menunjukkan gejala awal penyakit <b>Cercospora</b>.</string>
+    <string name="analyze_nutritional">Daun tersebut menunjukkan gejala awal penyakit <b>Putritional</b>.</string>
+    <string name="analyze_mites_and_trips">Daun tersebut menunjukkan gejala awal penyakit <b>Mites and Trips</b>.</string>
+    <string name="analyze_powdery_mildew">Daun tersebut menunjukkan gejala awal penyakit <b>Powdery Mildew</b>.</string>
+    <string name="analyze_healthy">Daun tersebut menunjukkan cabe <b>Sehat</b>.</string>
+
+    <string name="web_client_id">246037319307-j6aujt1vngfqun6je2ttjrosuvogluvp.apps.googleusercontent.com</string>
 
 </resources>

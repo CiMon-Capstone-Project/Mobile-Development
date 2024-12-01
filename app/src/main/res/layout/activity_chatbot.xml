@@ -11,7 +11,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         app:title="Chatbot"
         app:navigationIcon="@drawable/ic_arrow_back_ios_24"
         tools:ignore="MissingConstraints" />
@@ -32,6 +32,7 @@
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp"
+        android:layout_marginStart="15dp"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,9 +43,10 @@
             android:id="@+id/ed_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan promp"
+            android:hint="Masukkan prompt"
             android:inputType="text"
-            android:layout_marginStart="15dp"
+            android:ems="3"
+            tools:ignore="SpeakableTextPresentCheck"
             android:maxLines="3" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +55,7 @@
         android:id="@+id/btn_send"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         android:contentDescription="send"
         android:src="@drawable/ic_send_24"
         app:layout_constraintBottom_toBottomOf="@id/til_question"

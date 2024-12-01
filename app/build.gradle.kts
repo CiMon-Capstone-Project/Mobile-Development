@@ -6,6 +6,7 @@ plugins {
 
     id("kotlin-android")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -45,11 +46,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -107,8 +108,18 @@ dependencies {
     implementation("com.google.android.gms:play-services-tflite-support:16.1.0")
     implementation("com.google.android.gms:play-services-tflite-gpu:16.2.0")
     implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.2")
-    implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
 
     // chatbot
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // firebase related
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 }

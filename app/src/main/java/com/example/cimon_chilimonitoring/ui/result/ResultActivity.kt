@@ -40,10 +40,12 @@ class ResultActivity : AppCompatActivity() {
         }
         with(binding){
             tvResultText.text = confidant
-            if (result == "Cancer"){
-                tvResultConclusion.text = getText(R.string.cancer_detected)
-            } else {
-                tvResultConclusion.text = getText(R.string.no_cancer_detected)
+            when (result) {
+                "cercospora" -> tvResultConclusion.text = getText(R.string.analyze_cercospora)
+                "nutritional" -> tvResultConclusion.text = getText(R.string.analyze_nutritional)
+                "mites_and_trips" -> tvResultConclusion.text = getText(R.string.analyze_mites_and_trips)
+                "powdery_mildew" -> tvResultConclusion.text = getText(R.string.analyze_powdery_mildew)
+                else -> tvResultConclusion.text = getText(R.string.analyze_healthy)
             }
 
             btnSaveAnalysis.setOnClickListener {
