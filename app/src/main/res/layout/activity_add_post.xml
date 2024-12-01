@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:title="Chatbot"
+            app:title="Add to Forum"
             app:navigationIcon="@drawable/ic_arrow_back_ios_24"
             tools:ignore="MissingConstraints" />
 

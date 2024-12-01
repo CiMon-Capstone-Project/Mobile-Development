@@ -1,5 +1,6 @@
 package com.example.cimon_chilimonitoring.ui.chatbot
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cimon_chilimonitoring.BuildConfig
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.LOADING_ID
+import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.RECEIVE_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.SEND_ID
 import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
@@ -26,7 +28,6 @@ class ChatbotViewModel : ViewModel() {
     private val _initialMessageSent = MutableLiveData(false)
     val initialMessageSent: LiveData<Boolean> get() = _initialMessageSent
     private val LOADING_MESSAGE = "..."
-
 
     fun addMessage(message: Message) {
         _messagesList.value?.add(message)
@@ -55,12 +56,16 @@ class ChatbotViewModel : ViewModel() {
         ).toString()
     }
 
-    fun sendInitialMessage() {
-        if (_initialMessageSent.value == true) return
-        val initialPrompt = "Gunakan bahasa indonesia selalu pada chat ini. Asumsikan anda adalah bot sebuah aplikasi bernama CiMon. Anda akan membantu user dengan ramah seputar pertumbuhan cabai, penyakit, dan lain lain. Jawab prompt ini dengan bagaimana chatbot seharusnya menyapa pertama kali user."
-//        addMessage(Message(initialPrompt, SEND_ID))
+    fun sendInitialMessage(sharedPreferences: SharedPreferences) {
+        if (_initialMessageSent.value == true || sharedPreferences.getBoolean("initial_message_sent", false)) {
+            _initialMessageSent.value = true
+            return
+        }
+        val initialPrompt =
+            "Buat agar percakapan ini personal, Selalu gunakan emoticon agar chat terasa hidup. Pastikan respon singkat saja dan gunakan format HTML ketika merespon. Gunakan bahasa indonesia selalu pada chat ini. Asumsikan anda adalah bot sebuah aplikasi bernama CiMon. Anda akan membantu user dengan ramah seputar pertumbuhan cabai, penyakit, dan lain lain. Jawab prompt ini dengan bagaimana chatbot seharusnya menyapa pertama kali user."
         addMessage(Message(LOADING_MESSAGE, LOADING_ID))
         sendMessage(initialPrompt)
         _initialMessageSent.value = true
+        sharedPreferences.edit().putBoolean("initial_message_sent", true).apply()
     }
 }

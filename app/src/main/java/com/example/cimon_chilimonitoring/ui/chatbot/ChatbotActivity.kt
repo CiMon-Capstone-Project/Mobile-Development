@@ -107,6 +107,7 @@ class ChatbotActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.generatedContent.observe(this) { response ->
+            Log.d("ChatbotActivity", "Generated content observed: $response")
             if (viewModel.initialMessageSent.value == true) {
                 val loadingIndex = chatAdapter.messagesList.indexOfFirst { it.id == LOADING_ID }
                 if (loadingIndex != -1) {
@@ -121,7 +122,7 @@ class ChatbotActivity : AppCompatActivity() {
         }
         viewModel.initialMessageSent.observe(this) { initialMessageSent ->
             if (!initialMessageSent) {
-                viewModel.sendInitialMessage()
+                viewModel.sendInitialMessage(sharedPreferences)
             }
         }
     }
