@@ -122,4 +122,7 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+
+    // splash screen animation
+    implementation ("com.airbnb.android:lottie:6.6.0")
 }
