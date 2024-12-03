@@ -41,6 +41,9 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        // action bar color
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
@@ -56,8 +59,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // action bar color
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
 
         // firebase
         auth = Firebase.auth
