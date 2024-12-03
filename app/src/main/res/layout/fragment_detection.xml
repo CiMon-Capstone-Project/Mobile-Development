@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/plus_jakarta_sans"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:text="Instruksi"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="@dimen/bold_text"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/iv_placeholder_detection"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,9 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
                 android:fontFamily="@font/plus_jakarta_sans"
-                android:textColor="@color/black"
                 android:text="@string/txt_instruction"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="@dimen/bold_text"
                 app:layout_constraintStart_toStartOf="@+id/iv_placeholder_detection"
                 app:layout_constraintTop_toBottomOf="@+id/tv_instruction" />
