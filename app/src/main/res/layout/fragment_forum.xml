@@ -9,7 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_forum"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"/>
 
     <ProgressBar
         android:id="@+id/progress_bar_forum"
@@ -20,13 +21,6 @@
         android:layout_gravity="center"
         tools:visibility="visible" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Sedang memuat postingan"
-        android:textSize="@dimen/bold_text"
-        android:fontFamily="@font/plus_jakarta_sans"
-        android:gravity="center"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_post"

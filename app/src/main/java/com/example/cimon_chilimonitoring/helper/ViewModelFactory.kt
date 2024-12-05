@@ -8,6 +8,7 @@ import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.helper.di.AppExecutors
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryViewModel
 import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostViewModel
+import com.example.cimon_chilimonitoring.ui.forum.updatePost.UpdatePostViewModel
 
 class ViewModelFactory private constructor(private val historyRepo: HistoryRepo) :
     ViewModelProvider.NewInstanceFactory() {
@@ -16,6 +17,7 @@ class ViewModelFactory private constructor(private val historyRepo: HistoryRepo)
         return when {
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> historyViewModel as T
             modelClass.isAssignableFrom(AddPostViewModel::class.java) -> AddPostViewModel() as T
+            modelClass.isAssignableFrom(UpdatePostViewModel::class.java) -> UpdatePostViewModel() as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

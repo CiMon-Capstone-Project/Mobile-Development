@@ -21,6 +21,14 @@
         android:theme="@style/Theme.CiMonChiliMonitoring"
         tools:targetApi="31">
         <activity
+            android:name=".ui.forum.updatePost.UpdatePostActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
+        <activity
+            android:name=".ui.splashscreen.IntroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
+        <activity
             android:name=".ui.blog.detail.BlogDetailActivity"
             android:exported="false" />
         <activity
@@ -58,9 +66,10 @@
             android:exported="false"
             android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
-            android:name=".ui.splashscreen.IntroActivity"
+            android:name=".ui.splashscreen.SplashActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

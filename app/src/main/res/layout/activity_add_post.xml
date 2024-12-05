@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:title="Add to Forum"
+            app:title="Tambah Postingan"
             app:navigationIcon="@drawable/ic_arrow_back_ios_24"
             tools:ignore="MissingConstraints" />
 
@@ -43,6 +43,34 @@
             app:srcCompat="@drawable/ic_place_holder" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutTitle"
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cameraButton">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextAreaDescriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:gravity="top"
+                android:hint="Judul"
+                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
             android:layout_width="match_parent"
@@ -51,18 +79,19 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/uploadButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="@+id/textInputLayoutTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextAreaDescription"
                 android:layout_width="match_parent"
                 android:layout_height="173dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/plus_jakarta_sans"
                 android:gravity="top"
                 android:hint="Isi deskrippsi postingan"
-                android:layout_marginBottom="16dp"
                 android:inputType="textMultiLine"
                 android:maxLines="10"
-                android:fontFamily="@font/plus_jakarta_sans"
                 android:overScrollMode="always"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
@@ -79,7 +108,7 @@
             android:layout_marginBottom="16dp"
             android:text="Kamera"
             android:backgroundTint="@color/green"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/galleryButton" />
 
@@ -105,9 +134,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="30dp"
             android:text="Unggah Postingan"
             android:backgroundTint="@color/green"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -1,14 +1,17 @@
 package com.example.cimon_chilimonitoring
 
 import android.app.ActivityOptions
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
@@ -20,6 +23,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
@@ -35,19 +39,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        // action bar color
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_tracking, R.id.navigation_detection, R.id.navigation_forum, R.id.navigation_blog
@@ -56,8 +63,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // action bar color
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
 
         // firebase
         auth = Firebase.auth
@@ -68,7 +73,33 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, WelcomeActivity::class.java))
             finish()
             return
+        } else {
+            if (viewModel.isFirstLaunch) {
+                // Show loading
+                val loadingDialog = ProgressDialog(this)
+                loadingDialog.setMessage("Memulai Aplikasi ...")
+                loadingDialog.setCancelable(false)
+                loadingDialog.show()
+
+                // Log the user token
+                firebaseUser.getIdToken(true).addOnCompleteListener { task ->
+                    loadingDialog.dismiss()
+                    if (task.isSuccessful) {
+                        val idToken = task.result?.token
+                        if (idToken != null) {
+                            TokenManager.idToken = idToken
+                            TokenManager.userId = firebaseUser.uid
+                            TokenManager.email = firebaseUser.email
+                            Log.d("MainActivity", "User token: $idToken, User ID: ${firebaseUser.uid}")
+                        }
+                    } else {
+                        Log.e("MainActivity", "Failed to get user token", task.exception)
+                    }
+                }
+                viewModel.isFirstLaunch = false
+            }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -123,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val credentialManager = CredentialManager.create(this@MainActivity)
             auth.signOut()
+            TokenManager.idToken = null
             credentialManager.clearCredentialState(ClearCredentialStateRequest())
             startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
             finish()
