@@ -2,17 +2,24 @@ package com.example.cimon_chilimonitoring.ui.result
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
+import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.databinding.ActivityResultBinding
+import com.example.cimon_chilimonitoring.ui.forum.ForumViewModel
+import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -20,6 +27,7 @@ class ResultActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private var result: String? = null
     private var confidant: String? = null
+    private val viewModel: ResultViewModel by viewModels()
 
     private lateinit var historyDao: HistoryDao
 
@@ -38,15 +46,43 @@ class ResultActivity : AppCompatActivity() {
         imageUri?.let {
             binding.ivResultImage.setImageURI(it)
         }
+
+        lifecycleScope.launch {
+            val token = TokenManager.idToken
+            val idTreatments = when (result?.trim()?.lowercase()) {
+                "cercospora" -> 0
+                "nutritional" -> 3
+                "mites_and_trips" -> 2
+                "powdery_mildew" -> 4
+                else -> 1
+            }
+
+            Log.d("ResultActivity", "onCreate: $result and id : $idTreatments")
+            if (token != null) {
+                viewModel.getTreatments(token, idTreatments)
+                viewModel.listTreatments.observe(this@ResultActivity) { treatments ->
+                    treatments?.let {
+                        with(binding){
+                            tvSymptom.text = it[0].symptom
+                            tvPrevention.text = it[0].prevention
+                            tvTreatment.text = it[0].treatment
+                        }
+                    }
+                }
+            } else {
+                // Handle the case where the token is null
+            }
+        }
+
         with(binding){
             tvResultText.text = confidant
-            when (result) {
-                "cercospora" -> tvResultConclusion.text = getText(R.string.analyze_cercospora)
-                "nutritional" -> tvResultConclusion.text = getText(R.string.analyze_nutritional)
-                "mites_and_trips" -> tvResultConclusion.text = getText(R.string.analyze_mites_and_trips)
-                "powdery_mildew" -> tvResultConclusion.text = getText(R.string.analyze_powdery_mildew)
-                else -> tvResultConclusion.text = getText(R.string.analyze_healthy)
-            }
+//            when (result) {
+//                "cercospora" -> tvResultConclusion.text = getText(R.string.analyze_cercospora)
+//                "nutritional" -> tvResultConclusion.text = getText(R.string.analyze_nutritional)
+//                "mites_and_trips" -> tvResultConclusion.text = getText(R.string.analyze_mites_and_trips)
+//                "powdery_mildew" -> tvResultConclusion.text = getText(R.string.analyze_powdery_mildew)
+//                else -> tvResultConclusion.text = getText(R.string.analyze_healthy)
+//            }
 
             btnSaveAnalysis.setOnClickListener {
                 val uri = intent.getStringExtra(EXTRA_IMAGE_URI)
@@ -62,9 +98,9 @@ class ResultActivity : AppCompatActivity() {
                     )
                     HistoryRepo.getInstance(historyDao)
                         .saveHistoryToDatabase(listOf(historyEntity))
-                    showToast("Result saved to history")
+                    showToast("Hasil telah disimpan ke riwayat")
                 } else {
-                    showToast("Failed to save result")
+                    showToast("Terjadi kesalahan ketika menyimpan")
                 }
             }
 

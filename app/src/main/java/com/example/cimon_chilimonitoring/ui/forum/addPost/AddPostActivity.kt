@@ -1,6 +1,8 @@
 package com.example.cimon_chilimonitoring.ui.forum.addPost
 
 import android.Manifest
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -17,13 +19,25 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.cimon_chilimonitoring.R
+import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.databinding.ActivityAddPostBinding
 import com.example.cimon_chilimonitoring.helper.ImageUtils.getImageUri
+import com.example.cimon_chilimonitoring.helper.ImageUtils.reduceFileImage
+import com.example.cimon_chilimonitoring.helper.ImageUtils.uriToFile
 import com.example.cimon_chilimonitoring.helper.ViewModelFactory
 import com.example.cimon_chilimonitoring.ui.detection.DetectionViewModel
+import com.example.cimon_chilimonitoring.ui.forum.ForumFragment
+import com.google.gson.Gson
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
 import java.io.File
 
 class AddPostActivity : AppCompatActivity() {
@@ -78,7 +92,39 @@ class AddPostActivity : AppCompatActivity() {
             cameraButton.setOnClickListener { startCamera() }
 
             uploadButton.setOnClickListener {
-//                uploadImage()
+                uploadImage()
+            }
+        }
+    }
+
+    // create uploadImage function
+    private fun uploadImage() {
+        if (currentImageUri == null) {
+            showToast("Please select an image first")
+            return
+        }
+
+        val file = uriToFile(currentImageUri!!, this)
+        val requestFile = file.asRequestBody("image/jpeg".toMediaType())
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val title = binding.TextAreaDescriptionTitle.text.toString().toRequestBody("text/plain".toMediaType())
+        val description = binding.TextAreaDescription.text.toString().toRequestBody("text/plain".toMediaType())
+
+        lifecycleScope.launch {
+            showLoading(true)
+            try {
+                val token = TokenManager.idToken
+                val apiService = token?.let { ApiConfig.getApiService(it) }
+                val response = apiService?.postArticle(title, description, body)
+                showToast(response?.message ?: "Upload successful")
+                showLoading(false)
+                val resultIntent = Intent()
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            } catch (e: HttpException) {
+                showToast("Upload failed: ${e.message}")
+            } finally {
+                showLoading(false)
             }
         }
     }

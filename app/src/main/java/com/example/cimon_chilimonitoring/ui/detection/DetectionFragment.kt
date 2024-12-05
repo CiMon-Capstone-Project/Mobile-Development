@@ -56,13 +56,15 @@ class DetectionFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
 
-        viewModel.currentImageUri.observe(requireActivity()) { uri ->
+        viewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
-                binding.ivPlaceholderDetection.apply {
-                    setImageURI(it)
-                    scaleType = ImageView.ScaleType.CENTER_CROP
+                _binding?.let { binding ->
+                    binding.ivPlaceholderDetection.apply {
+                        setImageURI(it)
+                        scaleType = ImageView.ScaleType.CENTER_CROP
+                    }
+                    binding.btnAnalyze.isEnabled = true
                 }
-                binding.btnAnalyze.isEnabled = true
             }
         }
 
@@ -78,8 +80,10 @@ class DetectionFragment : Fragment() {
                 startCamera()
             }
             btnAnalyze.setOnClickListener {
-                currentImageUri?.let { uri ->
+                viewModel.currentImageUri.value?.let { uri ->
                     analyzeImage(uri)
+                } ?: run {
+                    showToast("Gambar tidak ditemukan")
                 }
             }
         }

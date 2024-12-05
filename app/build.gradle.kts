@@ -7,6 +7,7 @@ plugins {
     id("kotlin-android")
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -33,6 +34,13 @@ android {
             type = "String",
             name = "GEMINI_API_KEY",
             value = geminiApiKey
+        )
+
+        val cimonApikey = properties.getProperty("CIMON_API_KEY") ?: ""
+        buildConfigField(
+            type = "String",
+            name = "CIMON_API_KEY",
+            value = cimonApikey
         )
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CiMon - Chili Monitoring</string>
+    <string name="app_name">CiMon</string>
 
     <!--    bottom navbar-->
     <string name="header_home">Home</string>
