@@ -109,27 +109,27 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
 
-            btnUploadDetection.setOnClickListener {
-                lifecycleScope.launch {
-                    val token = TokenManager.idToken
-                    if (token != null && imageUri != null && result != null && confidant != null) {
-                        val file = File(imageUri!!.path!!)
-                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                        val disease = result!!.toRequestBody("text/plain".toMediaTypeOrNull())
-                        val confidence = confidant!!.toRequestBody("text/plain".toMediaTypeOrNull())
-
-                        try {
-                            val response = ApiConfig.getApiService(token).postDetection(disease, confidence, body)
-                            showToast("Detection uploaded successfully")
-                        } catch (e: Exception) {
-                            showToast("Failed to upload detection")
-                        }
-                    } else {
-                        showToast("Missing required data for upload")
-                    }
-                }
-            }
+//            btnUploadDetection.setOnClickListener {
+//                lifecycleScope.launch {
+//                    val token = TokenManager.idToken
+//                    if (token != null && imageUri != null && result != null && confidant != null) {
+//                        val file = File(imageUri!!.path!!)
+//                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+//                        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+//                        val disease = result!!.toRequestBody("text/plain".toMediaTypeOrNull())
+//                        val confidence = confidant!!.toRequestBody("text/plain".toMediaTypeOrNull())
+//
+//                        try {
+//                            val response = ApiConfig.getApiService(token).postDetection(disease, confidence, body)
+//                            showToast("Detection uploaded successfully")
+//                        } catch (e: Exception) {
+//                            showToast("Failed to upload detection")
+//                        }
+//                    } else {
+//                        showToast("Missing required data for upload")
+//                    }
+//                }
+//            }
 
             topAppBar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()

@@ -3,6 +3,7 @@ package com.example.cimon_chilimonitoring.data.remote.retrofit
 import com.example.cimon_chilimonitoring.data.remote.response.BlogResponse
 import com.example.cimon_chilimonitoring.data.remote.response.DeleteArticlesResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetArticleResponse
+import com.example.cimon_chilimonitoring.data.remote.response.GetBlogResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetTreatmentResponse
 import com.example.cimon_chilimonitoring.data.remote.response.LoginResponse
 import com.example.cimon_chilimonitoring.data.remote.response.PostArticlesResponse
@@ -51,7 +52,7 @@ interface ApiService {
     // blog
     @GET("blog")
     suspend fun getBlog(
-    ): BlogResponse
+    ): GetBlogResponse
 
     // treatment
     @GET("treatment/{id}")
@@ -82,13 +83,6 @@ interface ApiService {
     @DELETE("articles/{id}")
     suspend fun deleteArticle(@Path("id") id: Int)
 
-    // detection
-    @POST("detection")
-    suspend fun postDetection(
-        @Part("disease") title: RequestBody,
-        @Part("confidence") description: RequestBody,
-        @Part file: MultipartBody.Part
-    ): SaveDetectionResponse
 
 //    // get story by id
 //    @GET("stories/{id}")

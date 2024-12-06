@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cimon_chilimonitoring.data.remote.response.Results
+import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 
 class BlogViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _listStory = MutableLiveData<List<Results>?>()
-    val listStory: LiveData<List<Results>?> = _listStory
+    private val _listStory = MutableLiveData<List<ResultsItemBlog>?>()
+    val listStory: LiveData<List<ResultsItemBlog>?> = _listStory
 
     // new
     suspend fun getStory(token: String) {
@@ -20,9 +21,10 @@ class BlogViewModel : ViewModel() {
         _isLoading.value = true
         try {
             val response = ApiConfig.getApiService(token).getBlog()
-            _listStory.value = response.data?.results?.let { listOf(it) }
+            _listStory.value = response.data?.results?.filterNotNull()
             Log.d("BlogViewModel", "getStory: ${response.data?.results}")
         } catch (e: Exception) {
+            Log.e("BlogViewModel", "Error fetching story", e)
             _listStory.value = null
         } finally {
             _isLoading.value = false

@@ -24,6 +24,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
+import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
+import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDatabase
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
@@ -40,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var blogDao: BlogDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        blogDao = BlogDatabase.getInstance(this).blogDao()
 
         // firebase
         auth = Firebase.auth

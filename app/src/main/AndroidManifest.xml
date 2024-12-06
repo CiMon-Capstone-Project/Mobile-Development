@@ -30,7 +30,8 @@
             android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name=".ui.blog.detail.BlogDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
         <activity
             android:name=".ui.forum.addPost.AddPostActivity"
             android:exported="false"

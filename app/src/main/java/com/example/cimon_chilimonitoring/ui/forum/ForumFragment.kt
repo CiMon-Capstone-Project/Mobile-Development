@@ -60,7 +60,7 @@ class ForumFragment : Fragment(), OnEventClickListener {
                 viewModel.getStory(token)
             } else {
                 // Handle the case where the token is null
-                Toast.makeText(requireContext(), "Token is not available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show()
             }
         }
 

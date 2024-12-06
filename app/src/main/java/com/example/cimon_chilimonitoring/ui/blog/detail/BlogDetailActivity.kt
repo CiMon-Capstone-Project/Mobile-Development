@@ -1,16 +1,21 @@
 package com.example.cimon_chilimonitoring.ui.blog.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.cimon_chilimonitoring.R
+import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.ActivityBlogDetailBinding
 
-private lateinit var binding: ActivityBlogDetailBinding
 
 class BlogDetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityBlogDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,5 +32,31 @@ class BlogDetailActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        updateUI()
+    }
+
+    private fun updateUI(){
+        val blog = intent.getParcelableExtra<ResultsItemBlog>(EXTRA_BLOG)
+        blog?.let {
+            with(binding){
+                tvDetailTitle.text = it.title
+                tvDetailDate.text = it.description
+                tvDetailSourceInput.text = it.source
+                tvDetailSourceDate.text = it.createdAt
+                Glide.with(this@BlogDetailActivity)
+                    .load(it.imageUrl)
+                    .into(ivDetailPlaceholder)
+
+                btnDetailDeeplink.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(blog.source))
+                    startActivity(intent)
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val EXTRA_BLOG = "extra_blog"
     }
 }

@@ -32,6 +32,9 @@ data class Results(
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
+	@field:SerializedName("source")
+	val source: String? = null,
+
 	@field:SerializedName("id")
 	val id: Int? = null,
 
