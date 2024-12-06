@@ -11,6 +11,7 @@ import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,22 +44,29 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(){
-        with(binding){
+    private fun registerUser() {
+        with(binding) {
             val email = edEmailRegister.text.toString()
             val password = edPasswordRegister.text.toString()
+            val displayName = edName.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()){
+            if (email.isNotEmpty() && password.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         auth.createUserWithEmailAndPassword(email, password).await()
+                        auth.currentUser?.updateProfile(
+                            UserProfileChangeRequest.Builder()
+                                .setDisplayName(displayName)
+                                .build()
+                        )?.await()
 
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             updateUI()
                         }
-                    } catch (e: Exception){
-                        withContext(Dispatchers.Main){
-                            Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }

@@ -28,4 +28,16 @@ class ResultViewModel : ViewModel() {
             _isLoading.value = false
         }
     }
+
+//    suspend fun uploadDetection(token: String, id: Int, result: String) {
+//        _isLoading.value = true
+//        try {
+////            val response = ApiConfig.getApiService(token).postDetection(id, result)
+//            Log.d("ResultViewModel", "uploadDetection: ${response.message}")
+//        } catch (e: Exception) {
+//            Log.e("ResultViewModel", "uploadDetection: ${e.message}")
+//        } finally {
+//            _isLoading.value = false
+//        }
+//    }
 }

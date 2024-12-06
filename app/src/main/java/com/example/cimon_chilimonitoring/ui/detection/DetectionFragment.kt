@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,6 +42,7 @@ class DetectionFragment : Fragment() {
     private var currentImageUri: Uri? = null
     private lateinit var viewModel: DetectionViewModel
     private lateinit var historyDao: HistoryDao
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +57,11 @@ class DetectionFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
+        progressBar = binding.progressIndicator
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
 
         viewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
@@ -230,11 +237,13 @@ class DetectionFragment : Fragment() {
         )
 
         // Wait until TfLite is initialized
+        progressBar.visibility = View.VISIBLE
         Thread {
             while (!TfLiteVision.isInitialized()) {
                 Thread.sleep(100)
             }
             requireActivity().runOnUiThread {
+                progressBar.visibility = View.GONE
                 imageClassifierHelper.classifyStaticImage(uri)
             }
         }.start()

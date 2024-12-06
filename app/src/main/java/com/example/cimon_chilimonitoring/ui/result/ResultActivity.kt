@@ -20,6 +20,11 @@ import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.databinding.ActivityResultBinding
 import com.example.cimon_chilimonitoring.ui.forum.ForumViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -101,6 +106,28 @@ class ResultActivity : AppCompatActivity() {
                     showToast("Hasil telah disimpan ke riwayat")
                 } else {
                     showToast("Terjadi kesalahan ketika menyimpan")
+                }
+            }
+
+            btnUploadDetection.setOnClickListener {
+                lifecycleScope.launch {
+                    val token = TokenManager.idToken
+                    if (token != null && imageUri != null && result != null && confidant != null) {
+                        val file = File(imageUri!!.path!!)
+                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                        val disease = result!!.toRequestBody("text/plain".toMediaTypeOrNull())
+                        val confidence = confidant!!.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                        try {
+                            val response = ApiConfig.getApiService(token).postDetection(disease, confidence, body)
+                            showToast("Detection uploaded successfully")
+                        } catch (e: Exception) {
+                            showToast("Failed to upload detection")
+                        }
+                    } else {
+                        showToast("Missing required data for upload")
+                    }
                 }
             }
 
