@@ -22,6 +22,9 @@ data class HistoryEntity(
     @field:ColumnInfo(name = "detail")
     val detail: String? = null,
 
+//    @field:ColumnInfo(name = "detail")
+//    val detail: String? = null,
+
     @field:ColumnInfo(name = "analyzeTime")
     val analyzeTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
         Date()

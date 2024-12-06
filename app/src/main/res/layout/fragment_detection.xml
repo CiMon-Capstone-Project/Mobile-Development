@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp">
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progressIndicator"
@@ -107,9 +108,11 @@
                 android:layout_height="wrap_content"
                 android:text="Analisis sekarang"
                 app:layout_constraintEnd_toEndOf="@+id/btn_gallery"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintStart_toStartOf="@+id/btn_open_camera"
                 app:layout_constraintTop_toBottomOf="@+id/btn_open_camera" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
