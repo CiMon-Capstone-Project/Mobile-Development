@@ -177,6 +177,7 @@
            android:textSize="@dimen/normal_text"
            android:fontFamily="@font/plus_jakarta_sans"
            android:textStyle="bold"
+           android:onClick="onLoginClick"
            android:clickable="true"/>
    </LinearLayout>
 

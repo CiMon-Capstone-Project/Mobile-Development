@@ -23,6 +23,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -96,14 +97,14 @@ interface ApiService {
     ): PostDetectionResponse
 
     // get history
-    @GET("detection")
-    suspend fun getHistory(
-    ): GetHistoryResponse
-
 //    @GET("detection")
 //    suspend fun getHistory(
-//        @Query("page") page: Int
 //    ): GetHistoryResponse
+
+    @GET("detection")
+    suspend fun getHistory(
+        @Query("page") page: Int
+    ): GetHistoryResponse
 
 
 //    // get story by id

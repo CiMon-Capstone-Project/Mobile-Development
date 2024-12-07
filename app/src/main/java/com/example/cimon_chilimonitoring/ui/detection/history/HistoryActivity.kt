@@ -87,6 +87,7 @@ class HistoryActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val token = TokenManager.idToken
             if (token != null) {
+                historyViewModel.detectPages(token)
                 historyViewModel.getHistory(token)
                 Log.e("HistoryACtivity", "Token is $token")
                 historyViewModel.listStory.observe(this@HistoryActivity) { stories ->
@@ -95,6 +96,24 @@ class HistoryActivity : AppCompatActivity() {
                 }
             } else {
                 Log.e("HistoryACtivity", "Token is null")
+            }
+        }
+
+        with(binding){
+            fabRefresh.setOnClickListener {
+                val alertDialog = android.app.AlertDialog.Builder(this@HistoryActivity)
+                    .setTitle("Hapus History?")
+                    .setMessage("Yakin ingin menghapus lokal history? hanya lokal yang akan terhapus")
+                    .setPositiveButton("Ya") { _, _ ->
+                        lifecycleScope.launch {
+                            val historyRepo = HistoryRepo.getInstance(HistoryDatabase.getInstance(this@HistoryActivity).historyDao())
+                            historyRepo.deleteHistory()
+                            Toast.makeText(this@HistoryActivity, "History dihapus", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("Tidak", null)
+                    .create()
+                alertDialog.show()
             }
         }
     }

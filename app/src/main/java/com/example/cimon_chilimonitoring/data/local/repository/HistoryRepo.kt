@@ -42,4 +42,9 @@ class HistoryRepo  private constructor(
         Log.d("HistoryRepo", "Fetching history from database")
         return historyDao.getHistory()
     }
+
+    // delete history
+    suspend fun deleteHistory() {
+        historyDao.deleteLocalHistory()
+    }
 }

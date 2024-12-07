@@ -20,6 +20,8 @@ class HistoryViewModel(private val eventRepo: HistoryRepo) : ViewModel()   {
     private val _listStory = MutableLiveData<List<ResultsItemHistory>?>()
     val listStory: LiveData<List<ResultsItemHistory>?> = _listStory
 
+    private var page = 1
+
     init {
         observeHistory()
     }
@@ -32,12 +34,32 @@ class HistoryViewModel(private val eventRepo: HistoryRepo) : ViewModel()   {
         }
     }
 
+    suspend fun detectPages(token: String) {
+        while (true) {
+            try {
+                val response = ApiConfig.getApiService(token).getHistory(page)
+                if (response.data?.results?.isNotEmpty() == true) {
+                    Log.d("HistoryVM", "Page $page has data")
+                    page++
+                } else {
+                    Log.d("HistoryVM", "Page $page has no data, stopping")
+                    break
+                }
+            } catch (e: Exception) {
+                Log.e("HistoryVM", "Error fetching page $page", e)
+                break
+            }
+        }
+    }
+
     suspend fun getHistory(token:String){
         _isLoading.value = true
         try {
-            val response = ApiConfig.getApiService(token).getHistory()
-            _listStory.value = response.data?.results?.filterNotNull()
-            Log.d("HistoryVM", "Success fetching story ${_listStory.value}")
+            for (i in 1..<page) {
+                val response = ApiConfig.getApiService(token).getHistory(i)
+                _listStory.value = response.data?.results?.filterNotNull()
+                Log.d("HistoryVM", "Success fetching story ${_listStory.value}")
+            }
         } catch (e: Exception) {
             Log.e("HistoryVM", "Error fetching story", e)
             _listStory.value = null

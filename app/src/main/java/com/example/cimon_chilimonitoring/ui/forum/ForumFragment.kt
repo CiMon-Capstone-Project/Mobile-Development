@@ -86,7 +86,7 @@ class ForumFragment : Fragment(), OnEventClickListener {
     }
 
     companion object {
-        private const val REQUEST_CODE_ADD_POST = 1001
+        const val REQUEST_CODE_ADD_POST = 1001
         const val REQUEST_CODE_UPDATE_POST = 1002
     }
 

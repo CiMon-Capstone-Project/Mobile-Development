@@ -61,7 +61,6 @@ class BlogFragment : Fragment() {
 
         val blogDao = HistoryDatabase.getInstance(requireContext()).blogDao()
         blogDao.getBlog().observe(viewLifecycleOwner) { blogEntities ->
-            // Convert BlogEntity to ResultsItemBlog
             val blogs = blogEntities.map { blogEntity ->
                 ResultsItemBlog(
                     id = blogEntity.id,

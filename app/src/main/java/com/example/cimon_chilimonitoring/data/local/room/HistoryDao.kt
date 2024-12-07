@@ -21,4 +21,8 @@ interface HistoryDao {
     // history
     @Query("SELECT * FROM history")
     fun getHistory() : LiveData<List<HistoryEntity>>
+
+    // delete history
+    @Query("DELETE FROM history")
+    suspend fun deleteLocalHistory()
 }
