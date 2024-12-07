@@ -49,9 +49,9 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:textColor="@color/black"
-                android:text="Welcome to our chili monitoring app! (CiMon)"
+                android:text="Selamat datang di CiMon"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/plus_jakarta_sans"/>
         </LinearLayout>
 
         <Button

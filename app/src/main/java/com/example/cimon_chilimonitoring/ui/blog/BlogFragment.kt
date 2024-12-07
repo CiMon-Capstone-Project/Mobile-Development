@@ -16,7 +16,7 @@ import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.local.repository.BlogRepo
 import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
-import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDatabase
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.FragmentBlogBinding
 import com.example.cimon_chilimonitoring.databinding.FragmentForumBinding
@@ -55,8 +55,11 @@ class BlogFragment : Fragment() {
         val adapter = BlogAdapter()
         recyclerView.adapter = adapter
 
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.progressBarBlog.visibility = if (it) View.VISIBLE else View.GONE
+        }
 
-        val blogDao = BlogDatabase.getInstance(requireContext()).blogDao()
+        val blogDao = HistoryDatabase.getInstance(requireContext()).blogDao()
         blogDao.getBlog().observe(viewLifecycleOwner) { blogEntities ->
             // Convert BlogEntity to ResultsItemBlog
             val blogs = blogEntities.map { blogEntity ->
@@ -90,7 +93,7 @@ class BlogFragment : Fragment() {
     }
 
     private fun saveToDatabase(stories: List<ResultsItemBlog>) {
-        val blogRepo = BlogRepo.getInstance(BlogDatabase.getInstance(requireContext()).blogDao())
+        val blogRepo = BlogRepo.getInstance(HistoryDatabase.getInstance(requireContext()).blogDao())
         val historyEntities = stories.map { story ->
             BlogEntity(
                 id = story.id ?: 0,
@@ -101,7 +104,7 @@ class BlogFragment : Fragment() {
                 created_at = story.createdAt ?: ""
             )
         }
-        blogRepo.saveHistoryToDatabase(historyEntities)
+        blogRepo.saveBlogToDatabase(historyEntities)
     }
 
     override fun onDestroyView() {

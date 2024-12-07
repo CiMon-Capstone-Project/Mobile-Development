@@ -20,6 +20,13 @@
             app:navigationIcon="@drawable/ic_arrow_back_ios_24"
             tools:ignore="MissingConstraints" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tv_headline"
             android:layout_width="match_parent"
@@ -99,7 +106,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/plus_jakarta_sans"
-            android:text="hasil 2" />
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
 
         <TextView
             android:id="@+id/tv_preventation_header"
@@ -121,7 +128,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/plus_jakarta_sans"
-            android:text="For additional information like News and History, please check our Information Centre." />
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
 
         <TextView
             android:id="@+id/tv_treatment_header"
@@ -143,7 +150,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/plus_jakarta_sans"
-            android:text="yes" />
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
 
         <Button
             android:id="@+id/btn_save_analysis"

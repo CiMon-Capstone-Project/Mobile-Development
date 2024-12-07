@@ -201,8 +201,7 @@ class DetectionFragment : Fragment() {
 //                                        .format(it.score).trim()
 //                                }
                                 val highestCategory = it[0].categories.maxByOrNull { it.score }
-                                val displayResult = "${highestCategory?.label} " + NumberFormat.getPercentInstance()
-                                    .format(highestCategory?.score).trim()
+                                val displayResult = String.format("%.2f", highestCategory?.score)
 
                             displayResult
                         })

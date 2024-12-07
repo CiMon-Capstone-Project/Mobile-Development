@@ -44,7 +44,7 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
     ) {
         fun bind(stories: ResultsItem) {
             with(binding){
-                tvProfileName.text = stories.displayName ?: stories.email ?: "Anonymous"
+                tvProfileName.text = if (stories.displayName.isNullOrEmpty() && stories.email.isNullOrEmpty()) "Anonymous" else stories.displayName ?: stories.email
                 tvItemTitle.text = stories.title
                 itemDescription.text = stories.description
 

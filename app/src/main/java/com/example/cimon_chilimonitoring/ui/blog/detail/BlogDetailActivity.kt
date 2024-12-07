@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.ActivityBlogDetailBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class BlogDetailActivity : AppCompatActivity() {
@@ -43,7 +45,10 @@ class BlogDetailActivity : AppCompatActivity() {
                 tvDetailTitle.text = it.title
                 tvDetailDate.text = it.description
                 tvDetailSourceInput.text = it.source
-                tvDetailSourceDate.text = it.createdAt
+                tvDetailSourceDate.text = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(it.createdAt)
+                    ?.let { date ->
+                        SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)
+                    }
                 Glide.with(this@BlogDetailActivity)
                     .load(it.imageUrl)
                     .into(ivDetailPlaceholder)

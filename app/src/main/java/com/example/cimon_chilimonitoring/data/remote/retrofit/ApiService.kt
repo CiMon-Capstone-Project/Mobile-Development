@@ -4,9 +4,11 @@ import com.example.cimon_chilimonitoring.data.remote.response.BlogResponse
 import com.example.cimon_chilimonitoring.data.remote.response.DeleteArticlesResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetArticleResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetBlogResponse
+import com.example.cimon_chilimonitoring.data.remote.response.GetHistoryResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetTreatmentResponse
 import com.example.cimon_chilimonitoring.data.remote.response.LoginResponse
 import com.example.cimon_chilimonitoring.data.remote.response.PostArticlesResponse
+import com.example.cimon_chilimonitoring.data.remote.response.PostDetectionResponse
 import com.example.cimon_chilimonitoring.data.remote.response.RegisterResponse
 import com.example.cimon_chilimonitoring.data.remote.response.SaveDetectionResponse
 import com.example.cimon_chilimonitoring.data.remote.response.StoryResponse
@@ -82,6 +84,26 @@ interface ApiService {
     // delete
     @DELETE("articles/{id}")
     suspend fun deleteArticle(@Path("id") id: Int)
+
+    // post Detection
+    @Multipart
+    @POST("detection")
+    suspend fun postDetection(
+        @Part("confidence") confidence: RequestBody,
+        @Part("disease") disease: RequestBody,
+        @Part("treatment_id") treatment: RequestBody,
+        @Part file: MultipartBody.Part
+    ): PostDetectionResponse
+
+    // get history
+    @GET("detection")
+    suspend fun getHistory(
+    ): GetHistoryResponse
+
+//    @GET("detection")
+//    suspend fun getHistory(
+//        @Query("page") page: Int
+//    ): GetHistoryResponse
 
 
 //    // get story by id

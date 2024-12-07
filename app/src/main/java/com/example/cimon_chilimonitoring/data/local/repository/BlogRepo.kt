@@ -22,7 +22,7 @@ class BlogRepo  private constructor(
         blogDao.insertBlog(history)
     }
 
-    fun saveHistoryToDatabase(history: List<BlogEntity>) {
+    fun saveBlogToDatabase(history: List<BlogEntity>) {
         coroutineScope.launch {
             history.forEach { insertBlog(it) }
         }

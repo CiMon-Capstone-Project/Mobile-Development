@@ -22,8 +22,14 @@ data class HistoryEntity(
     @field:ColumnInfo(name = "detail")
     val detail: String? = null,
 
-//    @field:ColumnInfo(name = "detail")
-//    val detail: String? = null,
+    @field:ColumnInfo(name = "symptom")
+    val symptom: String? = null,
+
+    @field:ColumnInfo(name = "prevention")
+    val prevention: String? = null,
+
+    @field:ColumnInfo(name = "treatment")
+    val treatment: String? = null,
 
     @field:ColumnInfo(name = "analyzeTime")
     val analyzeTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(

@@ -16,6 +16,8 @@ import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewBlogBinding
 import com.example.cimon_chilimonitoring.helper.OnEventClickListener
 import com.example.cimon_chilimonitoring.ui.blog.detail.BlogDetailActivity
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class BlogAdapter : ListAdapter<ResultsItemBlog, BlogAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -34,7 +36,12 @@ class BlogAdapter : ListAdapter<ResultsItemBlog, BlogAdapter.MyViewHolder>(DIFF_
         fun bind(blog: ResultsItemBlog) {
             with(binding){
                 tvItemTitle.text = blog.title
-                tvItemDate.text = blog.createdAt
+                tvItemDate.text = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(blog.createdAt)
+                    ?.let {
+                        SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(
+                            it
+                        )
+                    }
                 tvItemSource.text = blog.description
             }
             Glide.with(itemView.context)

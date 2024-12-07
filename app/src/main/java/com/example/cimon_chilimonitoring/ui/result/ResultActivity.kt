@@ -1,8 +1,11 @@
 package com.example.cimon_chilimonitoring.ui.result
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -20,10 +23,12 @@ import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.databinding.ActivityResultBinding
 import com.example.cimon_chilimonitoring.ui.forum.ForumViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
 import java.io.File
 
 class ResultActivity : AppCompatActivity() {
@@ -51,6 +56,17 @@ class ResultActivity : AppCompatActivity() {
         imageUri?.let {
             binding.ivResultImage.setImageURI(it)
         }
+        binding.tvResultText.text = when (result) {
+            "cercospora" -> "Cercospora"
+            "nutritional" -> "Nutritional Deficiency / Kekurangan Nutrisi"
+            "mites_and_trips" -> "Mites and Trips"
+            "powdery_mildew" -> "Powdery Mildew / Jamur Tepung"
+            else -> "Healthy"
+        }
+
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
         lifecycleScope.launch {
             val token = TokenManager.idToken
@@ -68,6 +84,7 @@ class ResultActivity : AppCompatActivity() {
                 viewModel.listTreatments.observe(this@ResultActivity) { treatments ->
                     treatments?.let {
                         with(binding){
+                            tvResultText.text = it[0].disease
                             tvSymptom.text = it[0].symptom
                             tvPrevention.text = it[0].prevention
                             tvTreatment.text = it[0].treatment
@@ -75,12 +92,12 @@ class ResultActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                // Handle the case where the token is null
+                showToast("Hubungkan ke internet untuk mendapatkan informasi lebih lanjut")
             }
         }
 
         with(binding){
-            tvResultText.text = confidant
+
 //            when (result) {
 //                "cercospora" -> tvResultConclusion.text = getText(R.string.analyze_cercospora)
 //                "nutritional" -> tvResultConclusion.text = getText(R.string.analyze_nutritional)
@@ -99,7 +116,10 @@ class ResultActivity : AppCompatActivity() {
                         id = 0,
                         uriImage = uri,
                         result = result,
-                        detail = confidence
+                        detail = confidence,
+                        symptom = tvSymptom.text.toString(),
+                        prevention = tvPrevention.text.toString(),
+                        treatment = tvTreatment.text.toString()
                     )
                     HistoryRepo.getInstance(historyDao)
                         .saveHistoryToDatabase(listOf(historyEntity))
@@ -109,27 +129,9 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
 
-//            btnUploadDetection.setOnClickListener {
-//                lifecycleScope.launch {
-//                    val token = TokenManager.idToken
-//                    if (token != null && imageUri != null && result != null && confidant != null) {
-//                        val file = File(imageUri!!.path!!)
-//                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-//                        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-//                        val disease = result!!.toRequestBody("text/plain".toMediaTypeOrNull())
-//                        val confidence = confidant!!.toRequestBody("text/plain".toMediaTypeOrNull())
-//
-//                        try {
-//                            val response = ApiConfig.getApiService(token).postDetection(disease, confidence, body)
-//                            showToast("Detection uploaded successfully")
-//                        } catch (e: Exception) {
-//                            showToast("Failed to upload detection")
-//                        }
-//                    } else {
-//                        showToast("Missing required data for upload")
-//                    }
-//                }
-//            }
+            btnUploadDetection.setOnClickListener {
+                uploadDetection()
+            }
 
             topAppBar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
@@ -137,8 +139,54 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    private fun uploadDetection(){
+        // image
+        val file = File(imageUri!!.path!!)
+        val requestFile = file.asRequestBody("image/jpeg".toMediaType())
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+        val token = TokenManager.idToken
+        val disease = result!!.toRequestBody("text/plain".toMediaTypeOrNull())
+        val confidence = confidant!!.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val treatment = when (result!!.trim().lowercase()) {
+            "healthy" -> "1".toRequestBody("text/plain".toMediaTypeOrNull())
+            "mites_and_trips" -> "2".toRequestBody("text/plain".toMediaTypeOrNull())
+            "nutritional" -> "3".toRequestBody("text/plain".toMediaTypeOrNull())
+            "powdery_mildew" -> "4".toRequestBody("text/plain".toMediaTypeOrNull())
+            "cercospora" -> "0".toRequestBody("text/plain".toMediaTypeOrNull())
+            else -> "5".toRequestBody("text/plain".toMediaTypeOrNull())
+        }
+
+        lifecycleScope.launch {
+            if (token != null && imageUri != null && result != null && confidant != null) {
+                Log.d("ResultActivity", "onCreate: $result and confidence : $confidant")
+
+                try {
+                    showLoading(true)
+                    val response = ApiConfig.getApiService(token).postDetection(confidence, disease, treatment, body)
+                    showToast(response.message ?: "Upload successful")
+                } catch (e: HttpException) {
+                    Log.e("ResultActivity", "Upload failed: ${e.response()?.code() ?: e.message}")
+                    Log.e("ResultActivity", "Response error body: ${e.response()?.errorBody()?.string()}")
+                } catch (e: Exception) {
+                    showToast("Failed to upload detection")
+                    Log.e("ResultActivity", "onCreate: ${e.message}")
+                } finally {
+                    showLoading(false)
+                }
+            } else {
+                showToast("Missing required data for upload")
+            }
+        }
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {

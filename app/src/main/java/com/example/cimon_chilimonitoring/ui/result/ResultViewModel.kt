@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cimon_chilimonitoring.data.remote.response.Treatments
+import okhttp3.MediaType
+import okhttp3.RequestBody
 
 class ResultViewModel : ViewModel() {
 
@@ -28,16 +30,4 @@ class ResultViewModel : ViewModel() {
             _isLoading.value = false
         }
     }
-
-//    suspend fun uploadDetection(token: String, id: Int, result: String) {
-//        _isLoading.value = true
-//        try {
-////            val response = ApiConfig.getApiService(token).postDetection(id, result)
-//            Log.d("ResultViewModel", "uploadDetection: ${response.message}")
-//        } catch (e: Exception) {
-//            Log.e("ResultViewModel", "uploadDetection: ${e.message}")
-//        } finally {
-//            _isLoading.value = false
-//        }
-//    }
 }

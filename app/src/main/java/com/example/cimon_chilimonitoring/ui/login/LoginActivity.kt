@@ -1,7 +1,9 @@
 package com.example.cimon_chilimonitoring.ui.login
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityLoginBinding
+import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
+import com.example.cimon_chilimonitoring.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,19 +53,27 @@ class LoginActivity : AppCompatActivity() {
             val password = edPasswordLogin.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()){
+                progressBar.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         auth.signInWithEmailAndPassword(email, password).await()
 
                         withContext(Dispatchers.Main){
+                            progressBar.visibility = View.GONE
                             updateUI()
                         }
                     } catch (e: Exception){
                         withContext(Dispatchers.Main){
                             Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
+                            progressBar.visibility = View.GONE
                         }
                     }
                 }
+            }
+            progressBar.visibility = View.GONE
+
+            btnTxtRegister.setOnClickListener {
+                onLoginClick(it)
             }
         }
     }
@@ -72,5 +84,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }
+    }
+
+    fun onLoginClick(view: View) {
+        val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+        val options = ActivityOptions.makeSceneTransitionAnimation(this@LoginActivity)
+        startActivity(intent, options.toBundle())
     }
 }

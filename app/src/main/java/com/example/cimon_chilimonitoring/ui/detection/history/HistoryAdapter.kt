@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewHistoryBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK)  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,7 +33,7 @@ class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(D
                 with(binding){
                     tvItemTitle.text = history.result
                     tvItemConfidence.text = history.detail
-                    tvItemDate.text = "Analyzed at " + history.analyzeTime
+                    tvItemDate.text = "Dianalisis pada : " + formatDate(history.analyzeTime)
                 }
                 Glide.with(binding.root.context)
                     .load(history.uriImage) // URL Gambar
@@ -46,7 +48,7 @@ class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(D
         val DIFF_CALLBACK: DiffUtil.ItemCallback<HistoryEntity> =
             object : DiffUtil.ItemCallback<HistoryEntity>() {
                 override fun areItemsTheSame(oldItem: HistoryEntity, newItem: HistoryEntity): Boolean {
-                    return oldItem.analyzeTime == newItem.analyzeTime
+                    return oldItem.id == newItem.id
                 }
 
                 @SuppressLint("DiffUtilEquals")
@@ -55,4 +57,11 @@ class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(D
                 }
             }
     }
+}
+
+private fun formatDate(dateString: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
+    val date = inputFormat.parse(dateString)
+    return outputFormat.format(date)
 }

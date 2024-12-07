@@ -1,7 +1,9 @@
 package com.example.cimon_chilimonitoring.ui.register
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityRegisterBinding
+import com.example.cimon_chilimonitoring.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CoroutineScope
@@ -51,6 +54,7 @@ class RegisterActivity : AppCompatActivity() {
             val displayName = edName.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                progressBar.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         auth.createUserWithEmailAndPassword(email, password).await()
@@ -61,6 +65,7 @@ class RegisterActivity : AppCompatActivity() {
                         )?.await()
 
                         withContext(Dispatchers.Main) {
+                            progressBar.visibility = View.GONE
                             updateUI()
                         }
                     } catch (e: Exception) {
@@ -71,6 +76,11 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
+            progressBar.visibility = View.GONE
+
+            btnTxtRegister.setOnClickListener {
+                onLoginClick(it)
+            }
         }
     }
 
@@ -80,5 +90,11 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
             finish()
         }
+    }
+
+    fun onLoginClick(view: View) {
+        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+        val options = ActivityOptions.makeSceneTransitionAnimation(this@RegisterActivity)
+        startActivity(intent, options.toBundle())
     }
 }
