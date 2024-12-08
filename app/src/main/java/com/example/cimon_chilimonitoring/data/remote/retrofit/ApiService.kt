@@ -3,9 +3,12 @@ package com.example.cimon_chilimonitoring.data.remote.retrofit
 import com.example.cimon_chilimonitoring.data.remote.response.BlogResponse
 import com.example.cimon_chilimonitoring.data.remote.response.DeleteArticlesResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetArticleResponse
+import com.example.cimon_chilimonitoring.data.remote.response.GetBlogResponse
+import com.example.cimon_chilimonitoring.data.remote.response.GetHistoryResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetTreatmentResponse
 import com.example.cimon_chilimonitoring.data.remote.response.LoginResponse
 import com.example.cimon_chilimonitoring.data.remote.response.PostArticlesResponse
+import com.example.cimon_chilimonitoring.data.remote.response.PostDetectionResponse
 import com.example.cimon_chilimonitoring.data.remote.response.RegisterResponse
 import com.example.cimon_chilimonitoring.data.remote.response.SaveDetectionResponse
 import com.example.cimon_chilimonitoring.data.remote.response.StoryResponse
@@ -20,6 +23,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -51,7 +55,7 @@ interface ApiService {
     // blog
     @GET("blog")
     suspend fun getBlog(
-    ): BlogResponse
+    ): GetBlogResponse
 
     // treatment
     @GET("treatment/{id}")
@@ -82,13 +86,26 @@ interface ApiService {
     @DELETE("articles/{id}")
     suspend fun deleteArticle(@Path("id") id: Int)
 
-    // detection
+    // post Detection
+    @Multipart
     @POST("detection")
     suspend fun postDetection(
-        @Part("disease") title: RequestBody,
-        @Part("confidence") description: RequestBody,
+        @Part("confidence") confidence: RequestBody,
+        @Part("disease") disease: RequestBody,
+        @Part("treatment_id") treatment: RequestBody,
         @Part file: MultipartBody.Part
-    ): SaveDetectionResponse
+    ): PostDetectionResponse
+
+    // get history
+//    @GET("detection")
+//    suspend fun getHistory(
+//    ): GetHistoryResponse
+
+    @GET("detection")
+    suspend fun getHistory(
+        @Query("page") page: Int
+    ): GetHistoryResponse
+
 
 //    // get story by id
 //    @GET("stories/{id}")

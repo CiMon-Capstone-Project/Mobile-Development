@@ -24,7 +24,7 @@ import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostActivity
 import kotlinx.coroutines.launch
 
-class ForumFragment : Fragment(), OnEventClickListener {
+class ForumFragment : Fragment(){
 
     private val viewModel: ForumViewModel by viewModels()
     private var _binding: FragmentForumBinding? = null
@@ -42,7 +42,7 @@ class ForumFragment : Fragment(), OnEventClickListener {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
 
-        val adapter = ForumAdapter(this, viewModel)
+        val adapter = ForumAdapter(viewModel)
         recyclerView.adapter = adapter
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -60,7 +60,7 @@ class ForumFragment : Fragment(), OnEventClickListener {
                 viewModel.getStory(token)
             } else {
                 // Handle the case where the token is null
-                Toast.makeText(requireContext(), "Token is not available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Anda tidak terhubung ke internet", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -86,12 +86,7 @@ class ForumFragment : Fragment(), OnEventClickListener {
     }
 
     companion object {
-        private const val REQUEST_CODE_ADD_POST = 1001
+        const val REQUEST_CODE_ADD_POST = 1001
         const val REQUEST_CODE_UPDATE_POST = 1002
     }
-
-    override fun onEventClick(event: ResultsItem) {
-        Toast.makeText(requireContext(), event.title, Toast.LENGTH_SHORT).show()
-    }
-
 }

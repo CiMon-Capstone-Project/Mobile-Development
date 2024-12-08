@@ -9,23 +9,20 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
-import com.example.cimon_chilimonitoring.data.remote.response.ListStory
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItem
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewForumBinding
 import com.example.cimon_chilimonitoring.helper.OnEventClickListener
-import com.example.cimon_chilimonitoring.ui.detection.history.HistoryAdapter.Companion.DIFF_CALLBACK
 import com.example.cimon_chilimonitoring.ui.forum.ForumFragment.Companion.REQUEST_CODE_UPDATE_POST
 import com.example.cimon_chilimonitoring.ui.forum.updatePost.UpdatePostActivity
 import java.io.Serializable
 
-class ForumAdapter(private val listener: OnEventClickListener, private val viewModel: ForumViewModel) : ListAdapter<ResultsItem, ForumAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ForumAdapter(private val viewModel: ForumViewModel) : ListAdapter<ResultsItem, ForumAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemCardViewForumBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,11 +32,6 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val news = getItem(position)
         holder.bind(news)
-
-        // click handler
-        holder.itemView.setOnClickListener {
-            listener.onEventClick(news)
-        }
     }
 
     class MyViewHolder(val binding: ItemCardViewForumBinding, private val viewModel: ForumViewModel) : RecyclerView.ViewHolder(
@@ -47,7 +39,7 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
     ) {
         fun bind(stories: ResultsItem) {
             with(binding){
-                tvProfileName.text = stories.title
+                tvProfileName.text = if (stories.displayName.isNullOrEmpty() && stories.email.isNullOrEmpty()) "Anonymous" else stories.displayName ?: stories.email
                 tvItemTitle.text = stories.title
                 itemDescription.text = stories.description
 
@@ -55,17 +47,17 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
                 ivMoreVert.setOnClickListener {
                     val id = stories.id
                     val userId = stories.userId
-                    val firebaseId = TokenManager.userId
+                    val firebaseEmail = TokenManager.email
                     val token = TokenManager.idToken
 //                    Toast.makeText(itemView.context, "Delete ID: $id, User ID: $userId", Toast.LENGTH_SHORT).show()
-                    Log.d("ForumAdapter", "article id is ${stories.userId} and $firebaseId")
+                    Log.d("ForumAdapter", "article id is ${stories.userId} and $firebaseEmail")
 //                    ${viewModel.listStory.value?.filter { it.userId == stories.userId }}
                     val popupMenu = PopupMenu(itemView.context, it)
                     popupMenu.menuInflater.inflate(R.menu.menu_forum, popupMenu.menu)
                     popupMenu.setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.menu_delete -> {
-                                if (stories.userId == firebaseId) {
+                                if (stories.email == firebaseEmail) {
                                     val token = TokenManager.idToken
                                     if (token != null) {
                                         stories.id?.let { it1 -> viewModel.deleteArticle(token, it1) }
@@ -79,7 +71,7 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
                                 true
                             }
                             R.id.menu_update -> {
-                                if (stories.userId == firebaseId) {
+                                if (stories.email == firebaseEmail) {
                                     val filteredStories = viewModel.listStory.value?.filter { it.userId == stories.userId }
                                     Log.d("ForumAdapter", "article id is ${viewModel.listStory.value?.filter { it.userId == stories.userId }}")
                                     val intent = Intent(itemView.context, UpdatePostActivity::class.java).apply {
@@ -100,11 +92,6 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
             Glide.with(itemView.context)
                 .load(stories.imageUrl)
                 .into(binding.itemImage)
-            itemView.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(stories.imageUrl)
-                itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
-            }
         }
     }
 

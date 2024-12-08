@@ -1,30 +1,31 @@
 package com.example.cimon_chilimonitoring.data.remote.response
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
-data class GetArticleResponse(
+@Parcelize
+data class GetBlogResponse(
 
 	@field:SerializedName("data")
-	val data: DataArticles? = null,
+	val data: DataBlog? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
+) : Parcelable
 
-data class DataArticles(
+@Parcelize
+data class DataBlog(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null
-)
+	val results: List<ResultsItemBlog?>? = null
+) : Parcelable
 
-data class ResultsItem(
-
-	@field:SerializedName("user_id")
-	val userId: String? = null,
+@Parcelize
+data class ResultsItemBlog(
 
 	@field:SerializedName("image_url")
 	val imageUrl: String? = null,
@@ -38,12 +39,9 @@ data class ResultsItem(
 	@field:SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("email")
-	val email: String? = null,
-
-	@field:SerializedName("displayName")
-	val displayName: String? = null,
+	@field:SerializedName("source")
+	val source: String? = null,
 
 	@field:SerializedName("title")
 	val title: String? = null
-) : Serializable
+) : Parcelable

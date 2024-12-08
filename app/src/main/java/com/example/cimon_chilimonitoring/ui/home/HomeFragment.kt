@@ -1,16 +1,30 @@
 package com.example.cimon_chilimonitoring.ui.home
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cimon_chilimonitoring.R
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
+import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.FragmentHomeBinding
+import com.example.cimon_chilimonitoring.ui.blog.BlogAdapter
+import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
+import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
+import com.example.cimon_chilimonitoring.ui.forum.ForumFragment
+import com.example.cimon_chilimonitoring.ui.forum.ForumFragment.Companion.REQUEST_CODE_ADD_POST
+import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostActivity
 import java.util.Timer
 import java.util.TimerTask
 
@@ -30,13 +44,55 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
         // image slider
         autoImageSlide()
+
+        with(binding){
+            imageView4.setOnClickListener{
+                Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
+            }
+
+            btnQuickAccessForum.setOnClickListener{
+                val intent = Intent(requireContext(), AddPostActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+                startActivityForResult(intent, REQUEST_CODE_ADD_POST, options.toBundle())
+            }
+
+            btnQuickAccessChatbot.setOnClickListener{
+                val intent = Intent(requireContext(), ChatbotActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+                startActivity(intent, options.toBundle())
+            }
+
+            btnQuickAccessHistory.setOnClickListener{
+                val intent = Intent(requireContext(), HistoryActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+                startActivity(intent, options.toBundle())
+            }
+
+            val recyclerView: RecyclerView = binding.rvHomeBlog
+            val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.layoutManager = layoutManager
+
+            val adapter = BlogAdapter()
+            recyclerView.adapter = adapter
+
+            val blogDao = HistoryDatabase.getInstance(requireContext()).blogDao()
+            blogDao.getBlog().observe(viewLifecycleOwner) { blogEntities ->
+                val blogs = blogEntities.map { blogEntity ->
+                    ResultsItemBlog(
+                        id = blogEntity.id,
+                        title = blogEntity.title,
+                        imageUrl = blogEntity.image_url,
+                        description = blogEntity.description,
+                        source = blogEntity.source,
+                        createdAt = blogEntity.created_at
+                    )
+                }
+                Log.d("BlogFragment", "Blogs from DB: $blogs")
+                adapter.submitList(blogs)
+            }
+        }
 
         return root
     }

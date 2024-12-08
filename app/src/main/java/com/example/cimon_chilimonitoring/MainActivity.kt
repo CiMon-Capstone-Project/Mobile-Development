@@ -2,8 +2,13 @@ package com.example.cimon_chilimonitoring
 
 import android.app.ActivityOptions
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -24,9 +29,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
+import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
+import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
+import com.example.cimon_chilimonitoring.ui.pofile.ProfileActivity
 import com.example.cimon_chilimonitoring.ui.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
@@ -40,6 +49,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var blogDao: BlogDao
+
+    // networking
+    private lateinit var connectivityManager: ConnectivityManager
+    private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
         // firebase
         auth = Firebase.auth
         val firebaseUser = auth.currentUser
@@ -78,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 // Show loading
                 val loadingDialog = ProgressDialog(this)
                 loadingDialog.setMessage("Memulai Aplikasi ...")
-                loadingDialog.setCancelable(false)
+                loadingDialog.setCancelable(true)
                 loadingDialog.show()
 
                 // Log the user token
@@ -94,12 +107,46 @@ class MainActivity : AppCompatActivity() {
                         }
                     } else {
                         Log.e("MainActivity", "Failed to get user token", task.exception)
+                        Toast.makeText(this, "Tidak ada koneksi Internet", Toast.LENGTH_SHORT).show()
                     }
                 }
                 viewModel.isFirstLaunch = false
             }
         }
 
+        connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                val loadingDialog = ProgressDialog(this@MainActivity)
+                loadingDialog.setMessage("Memulai Aplikasi ...")
+                loadingDialog.setCancelable(true)
+                loadingDialog.show()
+                super.onAvailable(network)
+                if (TokenManager.idToken == null) {
+                    firebaseUser?.getIdToken(true)?.addOnCompleteListener { task ->
+                        loadingDialog.dismiss()
+                        if (task.isSuccessful) {
+                            val idToken = task.result?.token
+                            if (idToken != null) {
+                                TokenManager.idToken = idToken
+                                TokenManager.userId = firebaseUser.uid
+                                TokenManager.email = firebaseUser.email
+                                Log.d("MainActivity", "User token: $idToken, User ID: ${firebaseUser.uid}")
+                                Toast.makeText(this@MainActivity, "Terhubung ke internet", Toast.LENGTH_SHORT).show()
+                                recreate()
+                            }
+                        } else {
+                            Log.e("MainActivity", "Failed to get user token", task.exception)
+                        }
+                    }
+                }
+                loadingDialog.dismiss()
+            }
+        }
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -127,7 +174,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         accountIcon?.setOnMenuItemClickListener {
-            signOut()
+//            signOut()
+            val intent = Intent(this, ProfileActivity::class.java)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this)
+            startActivity(intent, options.toBundle())
             true
         }
 
@@ -150,14 +200,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun signOut() {
-        lifecycleScope.launch {
-            val credentialManager = CredentialManager.create(this@MainActivity)
-            auth.signOut()
-            TokenManager.idToken = null
-            credentialManager.clearCredentialState(ClearCredentialStateRequest())
-            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-            finish()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 }

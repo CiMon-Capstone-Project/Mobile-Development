@@ -21,16 +21,25 @@
         android:theme="@style/Theme.CiMonChiliMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".ui.forum.updatePost.UpdatePostActivity"
+            android:name=".ui.detection.history.HistoryDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar"/>
+        <activity
+            android:name=".ui.pofile.ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
+        <activity
+            android:name=".ui.forum.updatePost.UpdatePostActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name=".ui.splashscreen.IntroActivity"
             android:exported="false"
             android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name=".ui.blog.detail.BlogDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.CiMonChiliMonitoring.NoActionBar" />
         <activity
             android:name=".ui.forum.addPost.AddPostActivity"
             android:exported="false"

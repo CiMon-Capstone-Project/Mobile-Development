@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/iv_welcome"
         android:layout_width="match_parent"
@@ -28,13 +38,12 @@
         app:layout_constraintTop_toBottomOf="@id/iv_welcome"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!--        add string resource later-->
         <TextView
             android:id="@+id/tv_greeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Hello!"
+            android:text="Masuk!"
             android:textColor="@color/black"
             android:textSize="@dimen/bold_text"
             android:fontFamily="@font/plus_jakarta_sans_bold"
@@ -45,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Enter your username and password to login"
+            android:text="Masukkan email dan password"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_text"
             android:fontFamily="@font/plus_jakarta_sans"
@@ -153,7 +162,7 @@
            android:id="@+id/tv_no_account"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Dont have an account?"
+           android:text="Tidak punya akun?"
            android:textColor="@color/black"
            android:textSize="@dimen/normal_text"
            android:fontFamily="@font/plus_jakarta_sans"/>
@@ -163,11 +172,12 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginStart="4dp"
-           android:text="Register"
+           android:text="Daftar!"
            android:textColor="@color/black"
            android:textSize="@dimen/normal_text"
            android:fontFamily="@font/plus_jakarta_sans"
            android:textStyle="bold"
+           android:onClick="onLoginClick"
            android:clickable="true"/>
    </LinearLayout>
 
