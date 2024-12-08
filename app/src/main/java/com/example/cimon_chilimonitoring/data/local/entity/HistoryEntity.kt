@@ -1,12 +1,15 @@
 package com.example.cimon_chilimonitoring.data.local.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@Parcelize
 @Entity(tableName = "history")
 data class HistoryEntity(
     @field:ColumnInfo(name = "id")
@@ -35,4 +38,4 @@ data class HistoryEntity(
     val analyzeTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
         Date()
     )
-)
+) : Parcelable

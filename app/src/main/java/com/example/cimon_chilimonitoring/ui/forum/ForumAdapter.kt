@@ -22,7 +22,7 @@ import com.example.cimon_chilimonitoring.ui.forum.ForumFragment.Companion.REQUES
 import com.example.cimon_chilimonitoring.ui.forum.updatePost.UpdatePostActivity
 import java.io.Serializable
 
-class ForumAdapter(private val listener: OnEventClickListener, private val viewModel: ForumViewModel) : ListAdapter<ResultsItem, ForumAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ForumAdapter(private val viewModel: ForumViewModel) : ListAdapter<ResultsItem, ForumAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemCardViewForumBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,11 +32,6 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val news = getItem(position)
         holder.bind(news)
-
-        // click handler
-        holder.itemView.setOnClickListener {
-            listener.onEventClick(news)
-        }
     }
 
     class MyViewHolder(val binding: ItemCardViewForumBinding, private val viewModel: ForumViewModel) : RecyclerView.ViewHolder(
@@ -97,11 +92,6 @@ class ForumAdapter(private val listener: OnEventClickListener, private val viewM
             Glide.with(itemView.context)
                 .load(stories.imageUrl)
                 .into(binding.itemImage)
-            itemView.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(stories.imageUrl)
-                itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
-            }
         }
     }
 

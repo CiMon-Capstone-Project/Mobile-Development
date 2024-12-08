@@ -39,8 +39,8 @@ class BlogDetailActivity : AppCompatActivity() {
     }
 
     private fun updateUI(){
-        val blog = intent.getParcelableExtra<ResultsItemBlog>(EXTRA_BLOG)
-        blog?.let {
+        val detail = intent.getParcelableExtra<ResultsItemBlog>(EXTRA_BLOG)
+        detail?.let {
             with(binding){
                 tvDetailTitle.text = it.title
                 tvDetailDate.text = it.description
@@ -54,7 +54,7 @@ class BlogDetailActivity : AppCompatActivity() {
                     .into(ivDetailPlaceholder)
 
                 btnDetailDeeplink.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(blog.source))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(detail.source))
                     startActivity(intent)
                 }
             }

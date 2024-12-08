@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.result.ResultActivity">
+    tools:context=".ui.detection.history.HistoryDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -152,37 +152,15 @@
             android:fontFamily="@font/plus_jakarta_sans"
             android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
 
-        <Button
-            android:id="@+id/btn_save_analysis"
+        <TextView
+            android:id="@+id/tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:text="Simpan Hasil Analisis"
-            android:fontFamily="@font/plus_jakarta_sans_bold"
             android:textSize="@dimen/normal_text"
-            android:backgroundTint="@color/green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btn_upload_detection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="20dp"
-            android:text="Unggah ke server"
-            android:fontFamily="@font/plus_jakarta_sans_bold"
-            android:textSize="@dimen/normal_text"
-            android:backgroundTint="@color/light_green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:text="tanggal analisis" />
     </LinearLayout>
 </ScrollView>

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -121,16 +122,30 @@ class ResultActivity : AppCompatActivity() {
                         prevention = tvPrevention.text.toString(),
                         treatment = tvTreatment.text.toString()
                     )
-                    HistoryRepo.getInstance(historyDao)
-                        .saveHistoryToDatabase(listOf(historyEntity))
-                    showToast("Hasil telah disimpan ke riwayat")
+                    AlertDialog.Builder(this@ResultActivity)
+                        .setTitle("Simpan ke lokal?")
+                        .setMessage("Yakin menyimpan analisis ke lokal tanpa mengunggah ke server?")
+                        .setPositiveButton("Ya") { _, _ ->
+                            HistoryRepo.getInstance(historyDao)
+                                .saveHistoryToDatabase(listOf(historyEntity))
+                            showToast("Hasil telah disimpan secara lokal")
+                        }
+                        .setNegativeButton("Tidak", null)
+                        .show()
                 } else {
                     showToast("Terjadi kesalahan ketika menyimpan")
                 }
             }
 
             btnUploadDetection.setOnClickListener {
-                uploadDetection()
+                AlertDialog.Builder(this@ResultActivity)
+                    .setTitle("Unggah ke server?")
+                    .setMessage("Yakin ingin menyimpan hasil analisis ke server?")
+                    .setPositiveButton("Ya") { _, _ ->
+                        uploadDetection()
+                    }
+                    .setNegativeButton("Tidak", null)
+                    .show()
             }
 
             topAppBar.setNavigationOnClickListener {

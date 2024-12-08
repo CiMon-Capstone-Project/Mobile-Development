@@ -134,4 +134,5 @@ class HistoryActivity : AppCompatActivity() {
         }
         blogRepo.saveHistoryToDatabase(historyEntities)
     }
+
 }
