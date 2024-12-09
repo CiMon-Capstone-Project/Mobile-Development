@@ -31,24 +31,26 @@
         android:id="@+id/fab_add_tracking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="95dp"
         android:backgroundTint="@color/light_green"
+        android:contentDescription=" fab add tracking progress"
         android:src="@drawable/ic_edit_24"
         app:fabCustomSize="70dp"
         app:fabSize="auto"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
     <ProgressBar
         android:id="@+id/progressBar_tracking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:indeterminateTint="@color/teal_700"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

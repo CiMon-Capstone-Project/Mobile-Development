@@ -75,26 +75,21 @@
         app:layout_constraintTop_toBottomOf="@+id/div_greeting_login"
         tools:alpha="100" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailEditTextLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+    <com.example.cimon_chilimonitoring.ui.customView.EmailEditText
+        android:id="@+id/ed_email_login"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="@string/example_email_format"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email"
-        app:startIconDrawable="@drawable/ic_baseline_email_24">
+        app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_email_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_password"
@@ -106,32 +101,22 @@
         android:text="Password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/ed_email_login"
         tools:alpha="100" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordEditTextLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+    <com.example.cimon_chilimonitoring.ui.customView.PasswordEditText
+        android:id="@+id/ed_password_login"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:alpha="100"
-        app:endIconMode="password_toggle"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:drawablePadding="12dp"
+        android:hint="@string/hint_password"
+        app:layout_constraintBottom_toTopOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24"
-        tools:alpha="100">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_password_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
     <Button
         android:id="@+id/btn_login"
@@ -146,7 +131,7 @@
         android:textSize="@dimen/normal_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/ed_password_login"
         tools:alpha="100" />
     
    <LinearLayout
