@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_notifications_black_24dp"
-            android:text="Notifikasi"
+            android:text="Akses Notifikasi"
             app:layout_constraintTop_toBottomOf="@+id/tv_header"
             tools:layout_editor_absoluteX="32dp" />
 

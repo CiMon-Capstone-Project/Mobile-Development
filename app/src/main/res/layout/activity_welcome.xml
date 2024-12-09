@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/welcome"/>
+            android:src="@drawable/cimon_logo"/>
 
         <LinearLayout
             android:id="@+id/div_greeting"
@@ -32,26 +32,19 @@
             app:layout_constraintTop_toBottomOf="@id/iv_welcome"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- add string resource later -->
             <TextView
-                android:id="@+id/tv_greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:text="Hello!"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:text="Selamat datang di"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/normal_text"
+                android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/tv_welcome_msg"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:text="Selamat datang di CiMon"
-                android:textSize="16sp"
-                android:fontFamily="@font/plus_jakarta_sans"/>
+                android:src="@drawable/word_mark2"/>
+
         </LinearLayout>
 
         <Button

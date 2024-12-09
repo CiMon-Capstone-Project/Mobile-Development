@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/card_view_tracking"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:backgroundTint="@color/gray"
     android:elevation="4dp"
     android:orientation="vertical"
     app:cardCornerRadius="8dp"
     app:cardMaxElevation="4dp"
+    app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,15 +18,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_tracking_week"
+            android:id="@+id/tv_title"
             android:layout_width="0dp"
+            android:textColor="@color/green"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
             android:paddingStart="8dp"
-            android:text="Minggu 1"
+            android:paddingTop="20dp"
+            android:text="Judul"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/img_tracking_poster"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            app:layout_constraintEnd_toStartOf="@id/tv_day_elapsed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tv_tracking_description"/>
@@ -37,22 +41,87 @@
             android:layout_marginHorizontal="12dp"
             android:paddingStart="8dp"
             android:paddingBottom="34dp"
+            android:fontFamily="@font/plus_jakarta_sans"
             android:text="catatan hasil deteksi cabai"
             android:textSize="@dimen/normal_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/img_tracking_poster"
+            app:layout_constraintEnd_toStartOf="@id/tv_day_elapsed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_tracking_week" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <ImageView
-            android:id="@+id/img_tracking_poster"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+
+        <TextView
+            android:id="@+id/tv_tracking_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:paddingStart="8dp"
+            android:paddingBottom="20dp"
+            android:text="Dibuat pada : "
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tracking_description" />
+
+        <TextView
+            android:id="@+id/tv_tracking_start_date_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="12 Dec 2024"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textStyle="bold"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_tracking_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tracking_description" />
+
+        <TextView
+            android:id="@+id/tv_day_passed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:paddingBottom="20dp"
+            android:text="Hari Terlewati"
+            android:textSize="@dimen/normal_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day_elapsed"
+            app:layout_constraintStart_toStartOf="@+id/tv_day_elapsed"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tracking_description" />
+
+        <TextView
+            android:id="@+id/tv_day_elapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/banner_placeholder"
+            android:textColor="@color/green"
+            android:text="12"
+            android:layout_marginEnd="32dp"
+            android:textSize="50sp"
+            android:padding="@null"
+            android:includeFontPadding="false"
+            android:textAlignment="center"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_day_passed_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:paddingTop="20dp"
+            android:text="Tercatat"
+            android:textSize="@dimen/normal_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_day_elapsed"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day_elapsed"
+            app:layout_constraintStart_toStartOf="@+id/tv_day_elapsed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -1,54 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.tracking.TrackingFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Klik tombol di bawah untuk memulai tracking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tracking"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_card_view_tracking"
+        android:layout_marginBottom="80dp"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_blog"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_card_view_tracking" />
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/green"
+        tools:visibility="visible" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Tidak ada tracking"
+        android:id="@+id/no_tracking_text"
+        android:visibility="gone"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="@dimen/bold_text"
+        android:fontFamily="@font/plus_jakarta_sans"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_tracking"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="45dp"
-        android:backgroundTint="@color/light_green"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_edit_24"
         app:fabCustomSize="70dp"
         app:fabSize="auto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:tint="@android:color/white"
+        android:contentDescription="Tambah Tracking"
+        android:backgroundTint="@color/green"
+        android:layout_marginBottom="96dp"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar_tracking"
-        android:layout_width="wrap_content"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_delete"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:indeterminateTint="@color/teal_700"
-        android:visibility="visible"/>
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="22dp"
+        android:src="@drawable/ic_delete_sweep_24"
+        app:tint="@android:color/white"
+        android:layout_marginBottom="176dp"
+        android:contentDescription="Hapus semua"
+        android:backgroundTint="@color/rose_red"
+        android:layout_marginTop="16dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

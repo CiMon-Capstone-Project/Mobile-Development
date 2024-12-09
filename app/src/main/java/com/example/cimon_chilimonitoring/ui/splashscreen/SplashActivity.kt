@@ -53,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
                 spLoaded = true
                 handler.postDelayed({
                     sp.play(soundId, 1f, 1f, 0, 0, 1f)
-                }, 900) // delay
+                }, 700) // delay
             } else {
                 Toast.makeText(this@SplashActivity, "Gagal load SFX", Toast.LENGTH_SHORT).show()
             }

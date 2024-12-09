@@ -27,6 +27,7 @@ class BlogRepo  private constructor(
             history.forEach { insertBlog(it) }
         }
     }
+
     companion object {
         @Volatile
         private var instance: BlogRepo? = null

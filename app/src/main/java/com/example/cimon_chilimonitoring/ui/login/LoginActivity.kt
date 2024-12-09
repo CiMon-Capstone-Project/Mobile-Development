@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun onLoginClick(view: View) {
-        val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
         val options = ActivityOptions.makeSceneTransitionAnimation(this@LoginActivity)
         startActivity(intent, options.toBundle())
     }
