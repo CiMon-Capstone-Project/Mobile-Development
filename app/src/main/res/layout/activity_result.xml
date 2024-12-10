@@ -15,10 +15,17 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             app:title="Result"
             app:navigationIcon="@drawable/ic_arrow_back_ios_24"
             tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_headline"
@@ -28,7 +35,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
-            android:text="Analysis Result"
+            android:text="Hasil Analisis"
             android:textAlignment="center"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -54,7 +61,7 @@
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/plus_jakarta_sans"
             android:textAlignment="center"
-            android:text="Hasil analisis"
+            android:text="Hasil Klasifikasi Gambar"
             android:textSize="@dimen/bold_text"/>
 
         <TextView
@@ -74,32 +81,76 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/plus_jakarta_sans"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:text="hasil" />
 
         <TextView
-            android:id="@+id/tv_result_conclusion"
+            android:id="@+id/tv_symptom_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/normal_text"
+            android:textSize="@dimen/bold_text"
             android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:fontFamily="@font/inter"
-            android:text="hasil 2" />
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:text="Keterangan : " />
 
         <TextView
-            android:id="@+id/tv_result_information"
+            android:id="@+id/tv_symptom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text"
             android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:fontFamily="@font/inter"
-            android:text="For additional information like News and History, please check our Information Centre." />
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
+
+        <TextView
+            android:id="@+id/tv_preventation_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/bold_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:text="Pencegahan : " />
+
+        <TextView
+            android:id="@+id/tv_prevention"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
+
+        <TextView
+            android:id="@+id/tv_treatment_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/bold_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:text="Saran Perawatan : " />
+
+        <TextView
+            android:id="@+id/tv_treatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:text="Sambungkan ke internet untuk informasi lebih lanjut" />
 
         <Button
             android:id="@+id/btn_save_analysis"
@@ -108,10 +159,26 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:text="Simpan Hasil Analisis"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:textSize="@dimen/normal_text"
+            android:backgroundTint="@color/green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_upload_detection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="Unggah ke server"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textSize="@dimen/normal_text"
+            android:backgroundTint="@color/light_green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

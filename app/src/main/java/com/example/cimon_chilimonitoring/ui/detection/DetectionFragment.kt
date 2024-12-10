@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,6 +42,7 @@ class DetectionFragment : Fragment() {
     private var currentImageUri: Uri? = null
     private lateinit var viewModel: DetectionViewModel
     private lateinit var historyDao: HistoryDao
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,14 +57,21 @@ class DetectionFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
+        progressBar = binding.progressIndicator
 
-        viewModel.currentImageUri.observe(requireActivity()) { uri ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
-                binding.ivPlaceholderDetection.apply {
-                    setImageURI(it)
-                    scaleType = ImageView.ScaleType.CENTER_CROP
+                _binding?.let { binding ->
+                    binding.ivPlaceholderDetection.apply {
+                        setImageURI(it)
+                        scaleType = ImageView.ScaleType.CENTER_CROP
+                    }
+                    binding.btnAnalyze.isEnabled = true
                 }
-                binding.btnAnalyze.isEnabled = true
             }
         }
 
@@ -78,8 +87,10 @@ class DetectionFragment : Fragment() {
                 startCamera()
             }
             btnAnalyze.setOnClickListener {
-                currentImageUri?.let { uri ->
+                viewModel.currentImageUri.value?.let { uri ->
                     analyzeImage(uri)
+                } ?: run {
+                    showToast("Gambar tidak ditemukan")
                 }
             }
         }
@@ -107,9 +118,11 @@ class DetectionFragment : Fragment() {
         val destinationUri =
             Uri.fromFile(File(requireContext().cacheDir, "croppedImage_${System.currentTimeMillis()}.jpg"))
         val options = UCrop.Options().apply {
-            setCompressionQuality(80)
-            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f), AspectRatio("3:4", 3f, 4f), AspectRatio("Original", 0f, 0f))
-            setFreeStyleCropEnabled(true)
+            setCompressionQuality(90)
+            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f))
+            withMaxResultSize(256, 256)
+//            setAspectRatioOptions(0, AspectRatio("1:1", 1f, 1f), AspectRatio("3:4", 3f, 4f), AspectRatio("Original", 0f, 0f))
+//            setFreeStyleCropEnabled(true)
         }
         UCrop.of(uri, destinationUri)
             .withOptions(options)
@@ -173,20 +186,26 @@ class DetectionFragment : Fragment() {
                 override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
                     requireActivity().runOnUiThread {
                         val intent = Intent(requireContext(), ResultActivity::class.java)
+                        Log.d("DetectionFragment", "Results: $results")
                         intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, uri.toString())
                         intent.putExtra(
                             ResultActivity.EXTRA_RESULT,
                             results?.let { it[0].categories[0].label })
-                        intent.putExtra(ResultActivity.EXTRA_CONFIDENCE, results?.let {
-                            val sortedCategories =
-                                it[0].categories.sortedByDescending { it?.score }
-                            val displayResult =
-                                sortedCategories.joinToString("\n") {
-                                    "${it.label} " + NumberFormat.getPercentInstance()
-                                        .format(it.score).trim()
-                                }
+                        intent.putExtra(ResultActivity.EXTRA_CONFIDENCE,
+                            results?.let {
+//                            val sortedCategories =
+//                                it[0].categories.sortedByDescending { it?.score }
+//                            val displayResult =
+//                                sortedCategories.joinToString("\n") {
+//                                    "${it.label} " + NumberFormat.getPercentInstance()
+//                                        .format(it.score).trim()
+//                                }
+                                val highestCategory = it[0].categories.maxByOrNull { it.score }
+                                val displayResult = String.format("%.2f", highestCategory?.score)
+
                             displayResult
                         })
+
 
                         // Save result to database
 //                        results?.let {
@@ -217,11 +236,13 @@ class DetectionFragment : Fragment() {
         )
 
         // Wait until TfLite is initialized
+        progressBar.visibility = View.VISIBLE
         Thread {
             while (!TfLiteVision.isInitialized()) {
                 Thread.sleep(100)
             }
             requireActivity().runOnUiThread {
+                progressBar.visibility = View.GONE
                 imageClassifierHelper.classifyStaticImage(uri)
             }
         }.start()

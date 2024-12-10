@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
+import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -40,5 +41,10 @@ class HistoryRepo  private constructor(
     fun getHistory() : LiveData<List<HistoryEntity>> {
         Log.d("HistoryRepo", "Fetching history from database")
         return historyDao.getHistory()
+    }
+
+    // delete history
+    suspend fun deleteHistory() {
+        historyDao.deleteLocalHistory()
     }
 }

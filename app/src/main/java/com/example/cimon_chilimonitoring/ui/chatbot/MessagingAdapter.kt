@@ -7,21 +7,34 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cimon_chilimonitoring.R
+import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.LOADING_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.RECEIVE_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.SEND_ID
 
 class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>() {
-    private val messages: MutableList<Message> = mutableListOf()
-
     var messagesList = mutableListOf<Message>()
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
-            itemView.setOnClickListener {
+        private val tvMessage: TextView = itemView.findViewById(R.id.tv_message)
+        private val tvBotMessage: TextView = itemView.findViewById(R.id.tv_bot_message)
 
-                //Remove message on the item clicked
-                messagesList.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
+        fun bind(message: Message) {
+            when (message.id) {
+                SEND_ID -> {
+                    tvMessage.text = message.message
+                    tvMessage.visibility = View.VISIBLE
+                    tvBotMessage.visibility = View.GONE
+                }
+                RECEIVE_ID -> {
+                    tvBotMessage.text = message.message
+                    tvBotMessage.visibility = View.VISIBLE
+                    tvMessage.visibility = View.GONE
+                }
+                LOADING_ID -> {
+                    tvMessage.text = message.message
+                    tvMessage.visibility = View.VISIBLE
+                    tvBotMessage.visibility = View.GONE
+                }
             }
         }
     }
@@ -39,29 +52,11 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val currentMessage = messagesList[position]
-        val tv_message = holder.itemView.findViewById<TextView>(R.id.tv_message)
-        val tv_bot_message = holder.itemView.findViewById<TextView>(R.id.tv_bot_message)
-
-        when (currentMessage.id) {
-            SEND_ID -> {
-                tv_message.apply {
-                    text = currentMessage.message
-                    visibility = View.VISIBLE
-                }
-                tv_bot_message.visibility = View.GONE
-            }
-            RECEIVE_ID -> {
-                tv_bot_message.apply {
-                    text = currentMessage.message
-                    visibility = View.VISIBLE
-                }
-                tv_message.visibility = View.GONE
-            }
-        }
+        holder.bind(currentMessage)
     }
 
     fun addMessage(message: Message) {
-        messages.add(message)
-        notifyItemInserted(messages.size - 1)
+        messagesList.add(message)
+        notifyItemInserted(messagesList.size - 1)
     }
 }

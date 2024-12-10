@@ -7,6 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="almost_white">#F5F7F8</color>
+    <color name="beige">#FFFFEC</color>
+    <color name="cloud_blue">#F2F9FF</color>
+
 
 <!--    color pallete-->
     <color name="green">#689300</color>
@@ -15,4 +19,9 @@
     <color name="gray">#DCDCDC</color>
     <color name="dark_gray">#7D8C9A</color>
     <color name="rose_red">#EE4E4E</color>
+
+
+    <color name="lighter_green">#ECFFE6</color>
+
+
 </resources>
