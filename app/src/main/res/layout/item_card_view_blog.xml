@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/lighter_green"
     android:orientation="vertical"
     app:cardCornerRadius="10dp"
     app:cardElevation="4dp"
@@ -20,8 +21,8 @@
             android:layout_height="120dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/banner_placeholder"
             android:scaleType="centerCrop"
+            android:src="@drawable/banner_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,10 +33,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/plus_jakarta_sans"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
+            android:fontFamily="@font/plus_jakarta_sans"
             android:gravity="start"
             android:maxLines="1"
             android:textSize="12dp"
@@ -44,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_poster"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Source" />
+            tools:text="Date" />
 
         <TextView
             android:id="@+id/tv_item_title"
@@ -56,8 +57,8 @@
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:gravity="start"
             android:maxLines="2"
-            android:textStyle="bold"
             android:textSize="@dimen/bold_text"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_item_date"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_date"

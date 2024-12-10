@@ -8,8 +8,6 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import com.example.cimon_chilimonitoring.R
-import com.example.cimon_chilimonitoring.ml.CancerClassification
-import com.example.cimon_chilimonitoring.ml.FinalModelMetadata
 import com.example.cimon_chilimonitoring.ml.FinalModelMetadataV2
 import com.example.cimon_chilimonitoring.ml.Model
 import com.google.android.gms.tflite.client.TfLiteInitializationOptions

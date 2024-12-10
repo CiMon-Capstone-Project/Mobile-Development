@@ -29,12 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/light_green"
+        android:contentDescription="tambah ke forum"
         android:src="@drawable/ic_edit_24"
         app:fabCustomSize="70dp"
         app:fabSize="auto"
-        app:tint="@android:color/white"
-        android:contentDescription="tambah ke forum"
-        android:backgroundTint="@color/green"
-        android:layout_marginBottom="96dp"/>
+        app:tint="@android:color/white" />
 
 </FrameLayout>

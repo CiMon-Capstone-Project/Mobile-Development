@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="80dp"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:paddingStart="14dp"
-            android:text="Akses Cepat"
             android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:paddingStart="14dp"
+            android:text="@string/akses_cepat"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -165,9 +166,9 @@
             android:id="@+id/tv_interactive_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:paddingStart="14dp"
-            android:layout_marginTop="25dp"
             android:text="Kamera Interaktif"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
@@ -191,9 +192,9 @@
             android:id="@+id/tv_blog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:paddingStart="14dp"
-            android:layout_marginTop="25dp"
             android:text="Pusat Informasi  →"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
@@ -201,18 +202,18 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_blog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rv_home_blog"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/tv_blog"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            tools:listitem="@layout/item_card_view_blog"/>
+            android:paddingBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_blog"
+            tools:listitem="@layout/item_card_view_blog" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

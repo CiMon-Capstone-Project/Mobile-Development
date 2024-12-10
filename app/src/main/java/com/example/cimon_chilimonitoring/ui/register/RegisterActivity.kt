@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cimon_chilimonitoring.MainActivity
@@ -22,8 +23,8 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityRegisterBinding
-    private lateinit var auth : FirebaseAuth
+    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,8 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        with(binding){
-            btnRegister.setOnClickListener{
+        with(binding) {
+            btnRegister.setOnClickListener {
                 registerUser()
             }
         }
@@ -51,7 +52,7 @@ class RegisterActivity : AppCompatActivity() {
         with(binding) {
             val email = edEmailRegister.text.toString()
             val password = edPasswordRegister.text.toString()
-            val displayName = edName.text.toString()
+            val displayName = edUsernameRegister.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 progressBar.visibility = View.VISIBLE
@@ -84,8 +85,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUI(){
-        if (auth.currentUser != null){
+    private fun updateUI() {
+        if (auth.currentUser != null) {
             Toast.makeText(this@RegisterActivity, "You are Logged in!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
             finish()

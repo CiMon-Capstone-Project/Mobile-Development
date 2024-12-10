@@ -29,6 +29,19 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!--    customView resources-->
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="name_hint">Masukan nama anda</string>
+    <string name="email_hint">example@mail.com</string>
+    <string name="example_email_format">yourmail@mail.com</string>
+    <string name="warning_incorrect_email_format">Gunakan format email yang sesuai</string>
+    <string name="insufficient_password">Password must be at least 8 character</string>
+    <string name="error_empty_fields">Silahkan lengkapi data terlebih dahulu</string>
+    <string name="register_success">Registasi telah berhasil.</string>
+    <string name="hint_password">Masukan password</string>
+    <string name="error_password_too_short">Password must be at least 8 characters</string>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -67,5 +80,8 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--    home fragment string resources-->
+    <string name="akses_cepat">Akses Cepat</string>
 
 </resources>
