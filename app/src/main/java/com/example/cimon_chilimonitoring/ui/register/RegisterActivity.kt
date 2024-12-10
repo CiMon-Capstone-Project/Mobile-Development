@@ -3,6 +3,7 @@ package com.example.cimon_chilimonitoring.ui.register
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityRegisterBinding
@@ -33,6 +35,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnRegister.isEnabled = false
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -42,8 +46,17 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         with(binding) {
+            edEmailRegister.addTextChangedListener {
+                enableSignUpButton()
+            }
+
+            edPasswordRegister.addTextChangedListener {
+                enableSignUpButton()
+            }
+
             btnRegister.setOnClickListener {
                 registerUser()
+                progressBar.visibility = View.VISIBLE
             }
         }
     }
@@ -56,6 +69,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 progressBar.visibility = View.VISIBLE
+                binding.btnRegister.isEnabled = false
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         auth.createUserWithEmailAndPassword(email, password).await()
@@ -67,12 +81,15 @@ class RegisterActivity : AppCompatActivity() {
 
                         withContext(Dispatchers.Main) {
                             progressBar.visibility = View.GONE
+                            binding.btnRegister.isEnabled = true
                             updateUI()
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_SHORT)
                                 .show()
+                            progressBar.visibility = View.GONE
+                            binding.btnRegister.isEnabled = true
                         }
                     }
                 }
@@ -85,7 +102,13 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun enableSignUpButton() {
+        binding.btnRegister.isEnabled = binding.edEmailRegister.text.toString().isNotEmpty() &&
+                binding.edPasswordRegister.text.toString().isNotEmpty() &&
+                Patterns.EMAIL_ADDRESS.matcher(binding.edEmailRegister.text.toString()).matches() &&
+                binding.edPasswordRegister.text.toString().length >= 8
 
+    }
 
     private fun updateUI() {
         if (auth.currentUser != null) {

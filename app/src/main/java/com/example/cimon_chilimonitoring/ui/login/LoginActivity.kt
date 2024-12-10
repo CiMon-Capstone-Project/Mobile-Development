@@ -3,6 +3,7 @@ package com.example.cimon_chilimonitoring.ui.login
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -33,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnLogin.isEnabled = false
+
         binding.btnTxtRegister.setOnClickListener{
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
@@ -46,8 +49,17 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         with(binding){
+            edEmailLogin.addTextChangedListener {
+                enableLoginButton()
+            }
+
+            edPasswordLogin.addTextChangedListener {
+                enableLoginButton()
+            }
+
             btnLogin.setOnClickListener{
                 loginUser()
+                progressBar.visibility = View.VISIBLE
             }
         }
     }
@@ -59,43 +71,35 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()){
                 progressBar.visibility = View.VISIBLE
+                binding.btnLogin.isEnabled = false
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         auth.signInWithEmailAndPassword(email, password).await()
 
                         withContext(Dispatchers.Main) {
                             progressBar.visibility = View.GONE
+                            binding.btnLogin.isEnabled = true
                             updateUI()
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
+
                             progressBar.visibility = View.GONE
+                            binding.btnLogin.isEnabled = true
                         }
                     }
                 }
             }
             progressBar.visibility = View.GONE
-
-            edEmailLogin.addTextChangedListener {
-                enableLoginButton()
-            }
-
-            edPasswordLogin.addTextChangedListener {
-                enableLoginButton()
-            }
-
-            btnTxtRegister.setOnClickListener {
-                onLoginClick(it)
-            }
         }
     }
 
     private fun enableLoginButton() {
-        binding.btnLogin.isEnabled = binding.edEmailLogin.error == null &&
-                binding.edPasswordLogin.error == null &&
-                binding.edEmailLogin.text?.isNotEmpty() == true &&
-                binding.edPasswordLogin.text?.isNotEmpty() == true
+        binding.btnLogin.isEnabled = binding.edEmailLogin.text.toString().isNotEmpty() &&
+                binding.edPasswordLogin.text.toString().isNotEmpty() &&
+                Patterns.EMAIL_ADDRESS.matcher(binding.edEmailLogin.text.toString()).matches() &&
+                binding.edPasswordLogin.text.toString().length >= 8
     }
 
     private fun updateUI(){
