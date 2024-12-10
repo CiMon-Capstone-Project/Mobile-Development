@@ -1,5 +1,5 @@
-Depedency used :
-
+## **Depedency used :**
+```
 // image manipulation
 implementation ("com.github.bumptech.glide:glide:4.16.0")
 
@@ -46,3 +46,4 @@ implementation ("androidx.credentials:credentials:1.3.0")
 
 // splash screen animation
 implementation ("com.airbnb.android:lottie:6.6.0")
+```
