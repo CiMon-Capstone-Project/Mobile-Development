@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +145,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
 
-    <Button
+    <com.example.cimon_chilimonitoring.ui.customView.customButtonLogin
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,8 +153,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:alpha="100"
-        android:backgroundTint="@color/green"
-        android:text="Daftar"
         android:textSize="@dimen/normal_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

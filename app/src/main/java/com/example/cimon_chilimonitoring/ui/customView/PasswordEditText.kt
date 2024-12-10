@@ -42,7 +42,7 @@ class PasswordEditText @JvmOverloads constructor(
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val password = s.toString()
                 if (password.length < 8) {
-                    error = context.getString(R.string.error_password_too_short)
+                    error = "Password minimal 8 Karakter"
                 } else {
                     error = null
                 }
@@ -87,7 +87,7 @@ class PasswordEditText @JvmOverloads constructor(
             endOfTheText,
             bottomOfTheText
         )
-        compoundDrawablePadding = endPadding
+        compoundDrawablePadding = endPadding + resources.getDimensionPixelSize(R.dimen.margin_pw)
     }
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
