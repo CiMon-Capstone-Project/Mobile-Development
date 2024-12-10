@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="History"
+                    android:text="@string/text_history"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Tracking"
+                    android:text="@string/tracking"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Post"
+                    android:text="@string/text_post"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Chatbot"
+                    android:text="@string/text_chatbot"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -169,7 +169,7 @@
             android:layout_marginTop="25dp"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:paddingStart="14dp"
-            android:text="Kamera Interaktif"
+            android:text="@string/text_interactive_camera"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_quick_access"
@@ -195,7 +195,7 @@
             android:layout_marginTop="25dp"
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:paddingStart="14dp"
-            android:text="Pusat Informasi  →"
+            android:text="@string/text_pusat_informasi"
             android:textSize="@dimen/bold_text"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_quick_access"

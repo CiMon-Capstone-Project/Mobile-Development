@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        app:title="History"
+        app:title="@string/app_bar_history"
         app:navigationIcon="@drawable/ic_arrow_back_ios_24"
         tools:ignore="MissingConstraints" />
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Berikut adalah riwayat analisis yang anda simpan"
+        android:text="@string/history_header"
         android:textSize="@dimen/normal_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
@@ -41,11 +41,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:fontFamily="@font/inter"
-        android:text="Anda belum pernah melakukan analisis"
+        android:text="@string/never_analyze"
         android:visibility="invisible"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -67,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:backgroundTint="@color/rose_red"
-        android:contentDescription="tambah ke forum"
+        android:contentDescription="@string/add_to_forum_description"
         android:src="@drawable/ic_delete_sweep_24"
         app:fabCustomSize="70dp"
         app:fabSize="auto"

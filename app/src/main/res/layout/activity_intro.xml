@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="Selamat datang di CiMon!"
+        android:text="@string/welcoming_intro"
         android:fontFamily="@font/plus_jakarta_sans_bold"
         android:textColor="@color/black"
         android:textSize="@dimen/header_text"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="@+id/logoMenu2"
         app:layout_constraintStart_toStartOf="@+id/logoMenu2"
         app:layout_constraintTop_toBottomOf="@+id/logoMenu2"
-        android:text="Awasi, Pindai, Analisis" />
+        android:text="@string/jargon_1" />
 
     <TextView
         android:id="@+id/descMenu2"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
-        android:text="Pindai daun cabai Anda untuk mengenali penyakit dan mendapatkan rekomendasi perawatan"
+        android:text="@string/jargon_1_teks"
         android:textColor="@color/black"
         android:fontFamily="@font/plus_jakarta_sans"
         android:textSize="@dimen/normal_text"
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="@+id/logoMenu3"
         app:layout_constraintStart_toStartOf="@+id/logoMenu3"
         app:layout_constraintTop_toBottomOf="@+id/logoMenu3"
-        android:text="Terhubung dengan komunitas" />
+        android:text="@string/jargon_2" />
 
     <TextView
         android:id="@+id/descMenu3"
@@ -110,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="@+id/titleMenu3"
         app:layout_constraintStart_toStartOf="@+id/titleMenu3"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu3"
-        android:text="Temukan informasi menarik dengan berkomunikasi bersama petani lain pada forum" />
+        android:text="@string/jargon_2_teks" />
 
     <ImageView
         android:id="@+id/logoMenu4"
@@ -135,7 +135,7 @@
         app:layout_constraintEnd_toEndOf="@+id/logoMenu4"
         app:layout_constraintStart_toStartOf="@+id/logoMenu4"
         app:layout_constraintTop_toBottomOf="@+id/logoMenu4"
-        android:text="Simpan dan Akses Kapanpun" />
+        android:text="@string/jargon_3" />
 
     <TextView
         android:id="@+id/descMenu4"
@@ -149,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="@+id/titleMenu4"
         app:layout_constraintStart_toStartOf="@+id/titleMenu4"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu4"
-        android:text="Data dapat diakses meskipun tidak terhubung ke internet. Ayo mulai perjalananmu di CiMon!" />
+        android:text="@string/jargon_3_teks" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/menu1"
@@ -213,7 +213,7 @@
         android:layout_marginBottom="32dp"
         android:alpha="0"
         android:backgroundTint="@color/green"
-        android:text="Jelajahi CiMon!"
+        android:text="@string/continue_to_app"
         app:layout_constraintBottom_toTopOf="@+id/menu2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

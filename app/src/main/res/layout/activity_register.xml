@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Daftar!"
+            android:text="@string/text_daftar"
             android:textSize="@dimen/header_text"
             android:textStyle="bold"/>
 
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Daftarkan email dan passwordmu"
+            android:text="@string/register_header"
             android:textSize="@dimen/normal_text"
             android:textStyle="bold"/>
 
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="Nama"
+        android:text="@string/text_nama_panggilan"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/div_greeting_register"/>
@@ -94,7 +94,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:alpha="100"
-        android:text="Email"
+        android:text="@string/text_email"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_username_register"
@@ -123,7 +123,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:alpha="100"
-        android:text="Password"
+        android:text="@string/text_password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_email_register"
@@ -172,7 +172,7 @@
             android:id="@+id/tv_no_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sudah punya akun?"
+            android:text="@string/text_sudah_punya_akun"
             android:textSize="@dimen/normal_text"/>
 
         <TextView
@@ -180,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Masuk!"
+            android:text="@string/text_masuk"
             android:textSize="@dimen/normal_text"
             android:textStyle="bold"
             android:onClick="onLoginClick"
