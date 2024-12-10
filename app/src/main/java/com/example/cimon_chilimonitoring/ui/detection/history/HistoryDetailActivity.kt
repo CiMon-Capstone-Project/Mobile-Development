@@ -1,20 +1,10 @@
 package com.example.cimon_chilimonitoring.ui.detection.history
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
-import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
-import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.ActivityHistoryDetailBinding
-import com.example.cimon_chilimonitoring.ui.blog.detail.BlogDetailActivity.Companion.EXTRA_BLOG
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class HistoryDetailActivity : AppCompatActivity() {
     private lateinit var binding:ActivityHistoryDetailBinding

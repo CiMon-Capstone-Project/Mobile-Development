@@ -2,10 +2,8 @@ package com.example.cimon_chilimonitoring.ui.tracking
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cimon_chilimonitoring.data.local.entity.TrackingEntity
@@ -22,7 +20,6 @@ class TrackingAdapter : RecyclerView.Adapter<TrackingAdapter.MyViewHolder>() {
         init {
             itemBinding.root.setOnClickListener {
                 val position = adapterPosition
-                Log.d("TrackingAdapter", "Item clicked at $position")
             }
         }
     }

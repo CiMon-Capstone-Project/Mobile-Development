@@ -43,7 +43,7 @@ class customButtonRegister : AppCompatButton{
         setTextColor(txtColor)
         textSize = 14f
         gravity = Gravity.CENTER
-        text = if (isEnabled) "Masuk" else "Isi form terlebih dahulu"
+        text = if (isEnabled) "Daftar" else "Isi form terlebih dahulu"
         typeface = ResourcesCompat.getFont(context, R.font.plus_jakarta_sans)
         super.onDraw(canvas)
     }

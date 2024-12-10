@@ -13,14 +13,8 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
-import com.example.cimon_chilimonitoring.data.remote.response.ListStory
-import com.example.cimon_chilimonitoring.data.remote.response.ResultsItem
-import com.example.cimon_chilimonitoring.databinding.FragmentDetectionBinding
 import com.example.cimon_chilimonitoring.databinding.FragmentForumBinding
-import com.example.cimon_chilimonitoring.helper.OnEventClickListener
-import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostActivity
 import kotlinx.coroutines.launch
 

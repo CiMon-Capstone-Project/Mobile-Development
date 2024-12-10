@@ -2,26 +2,20 @@ package com.example.cimon_chilimonitoring.ui.blog
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.BlogEntity
-import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.local.repository.BlogRepo
-import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.FragmentBlogBinding
-import com.example.cimon_chilimonitoring.databinding.FragmentForumBinding
-import com.example.cimon_chilimonitoring.ui.forum.ForumAdapter
-import com.example.cimon_chilimonitoring.ui.forum.ForumViewModel
 import kotlinx.coroutines.launch
 
 class BlogFragment : Fragment() {
@@ -36,8 +30,6 @@ class BlogFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
@@ -71,7 +63,6 @@ class BlogFragment : Fragment() {
                     createdAt = blogEntity.created_at
                 )
             }
-            Log.d("BlogFragment", "Blogs from DB: $blogs")
             adapter.submitList(blogs)
         }
 
@@ -79,13 +70,12 @@ class BlogFragment : Fragment() {
             val token = TokenManager.idToken
             if (token != null) {
                 viewModel.getStory(token)
-                Log.e("BlogFragment", "Token is $token")
                 viewModel.listStory.observe(viewLifecycleOwner) { stories ->
 //                    adapter.submitList(stories)
                     stories?.let { saveToDatabase(it) }
                 }
             } else {
-                Log.e("BlogFragment", "Token is null")
+                Toast.makeText(requireContext(), "Operasi gagal!", Toast.LENGTH_SHORT).show()
             }
         }
         return root

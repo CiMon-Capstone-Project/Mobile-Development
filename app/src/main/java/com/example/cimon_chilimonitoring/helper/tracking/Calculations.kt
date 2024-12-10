@@ -5,8 +5,7 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
 object Calculations {
-    // calculate day after start
-
+    // menghitung hari dari tanggal sekarang
     fun calculateTimeBetweenDates(startDate: String): String {
 
         val endDate = timeStampToString(System.currentTimeMillis())
@@ -23,8 +22,6 @@ object Calculations {
             isNegative = true
         }
 
-//        val minutes = difference / 60 / 1000
-//        val hours = difference / 60 / 1000 / 60
         val days = (difference / 60 / 1000 / 60) / 24
         val months = (difference / 60 / 1000 / 60) / 24 / (365 / 12)
         val years = difference / 60 / 1000 / 60 / 24 / 365
@@ -61,8 +58,6 @@ object Calculations {
             isNegative = true
         }
 
-//        val minutes = difference / 60 / 1000
-//        val hours = difference / 60 / 1000 / 60
         val days = (difference / 60 / 1000 / 60) / 24
         val months = (difference / 60 / 1000 / 60) / 24 / (365 / 12)
         val years = difference / 60 / 1000 / 60 / 24 / 365
@@ -70,8 +65,6 @@ object Calculations {
         if (isNegative) {
 
             return when {
-//                minutes < 240 -> "Starts in $minutes minutes"
-//                hours < 48 -> "Starts in $hours hours"
                 days < 61 -> "Hari Lagi"
                 months < 24 -> "Bulan Lagi"
                 else -> "Tahun Lagi"
@@ -79,8 +72,6 @@ object Calculations {
         }
 
         return when {
-//            minutes < 240 -> "$minutes minutes ago"
-//            hours < 48 -> "$hours hours ago"
             days < 61 -> "Hari Berlalu"
             months < 24 -> "Bulan Berlalu"
             else -> "Tahun Terlewati"
@@ -104,25 +95,12 @@ object Calculations {
             day = "0$_day"
         }
 
-        if (_month < 9) { //Because the month instance we retrieve starts at 0 and it's stupid!
+        if (_month < 9) {
             month = "0${_month + 1}"
         } else if (_month >= 9 && _month <= 11) {
             month = (_month + 1).toString()
         }
 
         return "$day/$month/$_year"
-    }
-
-    fun cleanTime(_hour: Int, _minute: Int): String {
-        var hour = _hour.toString()
-        var minute = _minute.toString()
-
-        if (_hour < 10) {
-            hour = "0$_hour"
-        }
-        if (_minute < 10) {
-            minute = "0$_minute"
-        }
-        return "$hour:$minute"
     }
 }

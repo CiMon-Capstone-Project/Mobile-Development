@@ -18,7 +18,6 @@ class NameEditText @JvmOverloads constructor(
 
     private var clearButtonImage: Drawable
     private val startIconImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_person_24) as Drawable
-    private val customMarginStart = resources.getDimensionPixelSize(R.dimen.margin_start)
 
     init {
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_24) as Drawable

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,10 +73,8 @@ class TrackingFragment : Fragment() {
         trackingViewModel = ViewModelProvider(this, viewModelProviderFactory).get(TrackingViewModel::class.java)
 
         trackingViewModel.getAllReminders().observe(viewLifecycleOwner, Observer { trackingList ->
-            Log.d("TrackingFragment", "Fetched tracking data: $trackingList")
             trackingAdapter.setData(trackingList)
             trackingAdapter.notifyDataSetChanged()
-            Log.d("TrackingFragment", "Tracking data updated: $trackingList")
 
             if (trackingList.isEmpty()) {
                 binding.noTrackingText.visibility = View.VISIBLE

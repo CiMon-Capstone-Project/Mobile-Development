@@ -14,7 +14,6 @@ interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertHistory(history: HistoryEntity)
 
-    // suspend function untuk mendukung Coroutines
     @Update
     suspend fun updateNews(news: HistoryEntity)
 

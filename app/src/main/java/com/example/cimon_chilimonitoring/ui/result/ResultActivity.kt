@@ -1,28 +1,19 @@
 package com.example.cimon_chilimonitoring.ui.result
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.databinding.ActivityResultBinding
-import com.example.cimon_chilimonitoring.ui.forum.ForumViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -79,7 +70,6 @@ class ResultActivity : AppCompatActivity() {
                 else -> 1
             }
 
-            Log.d("ResultActivity", "onCreate: $result and id : $idTreatments")
             if (token != null) {
                 viewModel.getTreatments(token, idTreatments)
                 viewModel.listTreatments.observe(this@ResultActivity) { treatments ->
@@ -98,15 +88,6 @@ class ResultActivity : AppCompatActivity() {
         }
 
         with(binding){
-
-//            when (result) {
-//                "cercospora" -> tvResultConclusion.text = getText(R.string.analyze_cercospora)
-//                "nutritional" -> tvResultConclusion.text = getText(R.string.analyze_nutritional)
-//                "mites_and_trips" -> tvResultConclusion.text = getText(R.string.analyze_mites_and_trips)
-//                "powdery_mildew" -> tvResultConclusion.text = getText(R.string.analyze_powdery_mildew)
-//                else -> tvResultConclusion.text = getText(R.string.analyze_healthy)
-//            }
-
             btnSaveAnalysis.setOnClickListener {
                 val uri = intent.getStringExtra(EXTRA_IMAGE_URI)
                 val result = intent.getStringExtra(EXTRA_RESULT)
@@ -175,18 +156,15 @@ class ResultActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             if (token != null && imageUri != null && result != null && confidant != null) {
-                Log.d("ResultActivity", "onCreate: $result and confidence : $confidant")
 
                 try {
                     showLoading(true)
                     val response = ApiConfig.getApiService(token).postDetection(confidence, disease, treatment, body)
-                    showToast(response.message ?: "Upload successful")
+                    showToast("Deteksi tersimpan ke akun")
                 } catch (e: HttpException) {
-                    Log.e("ResultActivity", "Upload failed: ${e.response()?.code() ?: e.message}")
-                    Log.e("ResultActivity", "Response error body: ${e.response()?.errorBody()?.string()}")
+                    showToast("Failed to upload detection, ${e.message()}")
                 } catch (e: Exception) {
-                    showToast("Failed to upload detection")
-                    Log.e("ResultActivity", "onCreate: ${e.message}")
+                    showToast("Failed to upload detection, ${e.message}")
                 } finally {
                     showLoading(false)
                 }

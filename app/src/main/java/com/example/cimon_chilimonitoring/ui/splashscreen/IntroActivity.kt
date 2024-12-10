@@ -5,9 +5,6 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityIntroBinding
 import com.example.cimon_chilimonitoring.ui.welcome.WelcomeActivity
 

@@ -22,7 +22,6 @@ class PasswordEditText @JvmOverloads constructor(
     private var showButtonImage: Drawable
     private val startIconImage =
         ContextCompat.getDrawable(context, R.drawable.ic_baseline_lock_24) as Drawable
-    private val customMarginStart = resources.getDimensionPixelSize(R.dimen.margin_start)
 
     init {
         showButtonImage =

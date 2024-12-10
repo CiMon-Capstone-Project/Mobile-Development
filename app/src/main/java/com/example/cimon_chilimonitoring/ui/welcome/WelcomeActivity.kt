@@ -2,7 +2,7 @@ package com.example.cimon_chilimonitoring.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -86,8 +86,8 @@ class WelcomeActivity : AppCompatActivity() {
                     context = this@WelcomeActivity,
                 )
                 handleSignIn(result)
-            } catch (e: GetCredentialException) { //import from androidx.CredentialManager
-                Log.d("Error", e.message.toString())
+            } catch (e: GetCredentialException) {
+                Toast.makeText(this@WelcomeActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -101,17 +101,17 @@ class WelcomeActivity : AppCompatActivity() {
                         val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
                         firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
                     } catch (e: GoogleIdTokenParsingException) {
-                        Log.e(TAG, "Received an invalid google id token response", e)
+                        Toast.makeText(this, "Terjadi kesalahan pada kredensial", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     // Catch any unrecognized custom credential type here.
-                    Log.e(TAG, "Unexpected type of credential")
+                    Toast.makeText(this, "Terjadi kesalahan pada kredensial", Toast.LENGTH_SHORT).show()
                 }
             }
 
             else -> {
                 // Catch any unrecognized credential type here.
-                Log.e(TAG, "Unexpected type of credential")
+                Toast.makeText(this, "Terjadi kesalahan pada kredensial", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -121,11 +121,9 @@ class WelcomeActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
                     val user: FirebaseUser? = auth.currentUser
                     updateUI(user)
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null)
                 }
             }
