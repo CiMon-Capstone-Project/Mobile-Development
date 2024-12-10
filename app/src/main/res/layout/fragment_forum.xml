@@ -30,7 +30,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="96dp"
-        android:backgroundTint="@color/light_green"
+        android:backgroundTint="@color/green"
         android:contentDescription="tambah ke forum"
         android:src="@drawable/ic_edit_24"
         app:fabCustomSize="70dp"
