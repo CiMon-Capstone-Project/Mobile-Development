@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,9 +21,9 @@ import com.example.cimon_chilimonitoring.databinding.FragmentHomeBinding
 import com.example.cimon_chilimonitoring.ui.blog.BlogAdapter
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
-import com.example.cimon_chilimonitoring.ui.forum.ForumFragment
 import com.example.cimon_chilimonitoring.ui.forum.ForumFragment.Companion.REQUEST_CODE_ADD_POST
 import com.example.cimon_chilimonitoring.ui.forum.addPost.AddPostActivity
+import com.example.cimon_chilimonitoring.ui.tracking.create.CreateTrackingActivity
 import java.util.Timer
 import java.util.TimerTask
 
@@ -70,12 +69,32 @@ class HomeFragment : Fragment() {
                 startActivity(intent, options.toBundle())
             }
 
+            btnQuickAccessTracking.setOnClickListener{
+                val intent = Intent(requireContext(), CreateTrackingActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+                startActivity(intent, options.toBundle())
+            }
+
             val recyclerView: RecyclerView = binding.rvHomeBlog
             val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             recyclerView.layoutManager = layoutManager
 
             val adapter = BlogAdapter()
             recyclerView.adapter = adapter
+
+            // Auto scroll
+            val handler = Handler(Looper.getMainLooper())
+            val runnable = object : Runnable {
+                override fun run() {
+                    val itemCount = adapter.itemCount
+                    if (itemCount > 0) {
+                        val nextItem = (layoutManager.findFirstVisibleItemPosition() + 1) % itemCount
+                        recyclerView.smoothScrollToPosition(nextItem)
+                    }
+                    handler.postDelayed(this, 5000)
+                }
+            }
+            handler.post(runnable)
 
             val blogDao = HistoryDatabase.getInstance(requireContext()).blogDao()
             blogDao.getBlog().observe(viewLifecycleOwner) { blogEntities ->

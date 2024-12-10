@@ -6,12 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cimon_chilimonitoring.data.local.entity.BlogEntity
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
+import com.example.cimon_chilimonitoring.data.local.entity.TrackingEntity
 import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
+import com.example.cimon_chilimonitoring.data.local.room.tracking.TrackingDao
 
-@Database(entities = [HistoryEntity::class, BlogEntity::class], version = 2, exportSchema = false)
+@Database(entities = [HistoryEntity::class, BlogEntity::class, TrackingEntity::class], version = 3, exportSchema = false)
 abstract class HistoryDatabase : RoomDatabase(){
     abstract fun historyDao(): HistoryDao
     abstract fun blogDao(): BlogDao
+    abstract fun trackingDao(): TrackingDao
 
     companion object {
         @Volatile

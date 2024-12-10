@@ -1,5 +1,6 @@
 package com.example.cimon_chilimonitoring
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.app.ProgressDialog
 import android.content.Context
@@ -17,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
@@ -32,6 +34,7 @@ import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
+import com.example.cimon_chilimonitoring.data.local.room.tracking.TrackingDao
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
@@ -156,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         val historyIcon = menu.findItem(R.id.menu_history)
         val chatbotIcon = menu.findItem(R.id.menu_chat)
         val accountIcon = menu.findItem(R.id.menu_account)
+        val deleteIcon = menu.findItem(R.id.menu_delete)
 //        val searchView = historyIcon?.actionView as? SearchView
 
         // icon clicked
@@ -181,6 +185,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
         // disable top bar icon
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -203,5 +208,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         connectivityManager.unregisterNetworkCallback(networkCallback)
+        HistoryDatabase.getInstance(this).close()
     }
 }
