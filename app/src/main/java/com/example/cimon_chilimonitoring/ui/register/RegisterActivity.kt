@@ -85,6 +85,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun updateUI() {
         if (auth.currentUser != null) {
             Toast.makeText(this@RegisterActivity, "You are Logged in!", Toast.LENGTH_SHORT).show()

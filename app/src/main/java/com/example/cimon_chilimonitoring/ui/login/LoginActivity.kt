@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityLoginBinding
@@ -62,12 +63,12 @@ class LoginActivity : AppCompatActivity() {
                     try {
                         auth.signInWithEmailAndPassword(email, password).await()
 
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             progressBar.visibility = View.GONE
                             updateUI()
                         }
-                    } catch (e: Exception){
-                        withContext(Dispatchers.Main){
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
                             Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
                             progressBar.visibility = View.GONE
                         }
@@ -76,10 +77,25 @@ class LoginActivity : AppCompatActivity() {
             }
             progressBar.visibility = View.GONE
 
+            edEmailLogin.addTextChangedListener {
+                enableLoginButton()
+            }
+
+            edPasswordLogin.addTextChangedListener {
+                enableLoginButton()
+            }
+
             btnTxtRegister.setOnClickListener {
                 onLoginClick(it)
             }
         }
+    }
+
+    private fun enableLoginButton() {
+        binding.btnLogin.isEnabled = binding.edEmailLogin.error == null &&
+                binding.edPasswordLogin.error == null &&
+                binding.edEmailLogin.text?.isNotEmpty() == true &&
+                binding.edPasswordLogin.text?.isNotEmpty() == true
     }
 
     private fun updateUI(){
