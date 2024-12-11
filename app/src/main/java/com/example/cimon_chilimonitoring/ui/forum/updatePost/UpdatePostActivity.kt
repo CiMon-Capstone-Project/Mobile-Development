@@ -1,12 +1,10 @@
 package com.example.cimon_chilimonitoring.ui.forum.updatePost
 
 import android.Manifest
-import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -62,8 +60,6 @@ class UpdatePostActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(UpdatePostViewModel::class.java)
         val story = intent.getSerializableExtra("STORY_OBJECT") as ResultsItem
-//        currentImageUri = Uri.parse(story.imageUrl)
-        Log.d("UpdatePostActivity", "Story: ${story.id}, currentImageUri: $currentImageUri")
 
         with(binding){
             galleryButton.setOnClickListener { startGallery() }
@@ -156,14 +152,11 @@ class UpdatePostActivity : AppCompatActivity() {
             if (resultUri != null) {
                 currentImageUri = resultUri
                 viewModel.setCurrentImageUri(resultUri)
-                Log.d("DetectionFragment", "Image URI: $currentImageUri")
                 showImage()
             } else {
-                Log.d("DetectionFragment", "Crop failed, resultUri is null")
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
-            Log.e("UCrop", "Crop error: ${cropError?.message}")
         }
     }
 

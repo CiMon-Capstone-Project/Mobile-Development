@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
-import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.databinding.FragmentDetectionBinding
@@ -32,7 +29,6 @@ import com.yalantis.ucrop.model.AspectRatio
 import org.tensorflow.lite.task.gms.vision.TfLiteVision
 import org.tensorflow.lite.task.gms.vision.classifier.Classifications
 import java.io.File
-import java.text.NumberFormat
 
 class DetectionFragment : Fragment() {
 
@@ -136,14 +132,11 @@ class DetectionFragment : Fragment() {
             if (resultUri != null) {
                 currentImageUri = resultUri
                 viewModel.setCurrentImageUri(resultUri)
-                Log.d("DetectionFragment", "Image URI: $currentImageUri")
                 showImage()
             } else {
-                Log.d("DetectionFragment", "Crop failed, resultUri is null")
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
-            Log.e("UCrop", "Crop error: ${cropError?.message}")
         }
     }
 
@@ -186,48 +179,21 @@ class DetectionFragment : Fragment() {
                 override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
                     requireActivity().runOnUiThread {
                         val intent = Intent(requireContext(), ResultActivity::class.java)
-                        Log.d("DetectionFragment", "Results: $results")
                         intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, uri.toString())
                         intent.putExtra(
                             ResultActivity.EXTRA_RESULT,
                             results?.let { it[0].categories[0].label })
                         intent.putExtra(ResultActivity.EXTRA_CONFIDENCE,
                             results?.let {
-//                            val sortedCategories =
-//                                it[0].categories.sortedByDescending { it?.score }
-//                            val displayResult =
-//                                sortedCategories.joinToString("\n") {
-//                                    "${it.label} " + NumberFormat.getPercentInstance()
-//                                        .format(it.score).trim()
-//                                }
                                 val highestCategory = it[0].categories.maxByOrNull { it.score }
                                 val displayResult = String.format("%.2f", highestCategory?.score)
 
                             displayResult
                         })
-
-
-                        // Save result to database
-//                        results?.let {
-//                            val historyEntity = HistoryEntity(
-//                                id = 0,
-//                                uriImage = uri.toString(),
-//                                result = it[0].categories[0].label,
-//                                detail = it[0].categories.maxByOrNull { it.score }
-//                                    ?.let { category ->
-//                                        NumberFormat.getPercentInstance().format(category.score)
-//                                            .trim()
-//                                    } ?: ""
-//                            )
-//                            HistoryRepo.getInstance(historyDao)
-//                                .saveHistoryToDatabase(listOf(historyEntity))
-//                        }
-
                         requireActivity().runOnUiThread {
                             startActivity(intent)
                             with(binding) {
                                 btnAnalyze.isEnabled = true
-//                                btnAnalyze.text = getString(R.string.analyze)
                             }
                         }
                     }

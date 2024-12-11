@@ -1,21 +1,13 @@
 package com.example.cimon_chilimonitoring.ui.tracking.update
 
-import android.app.Activity
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.navArgs
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.TrackingEntity
@@ -27,7 +19,7 @@ import com.example.cimon_chilimonitoring.ui.tracking.TrackingViewModel
 import com.example.cimon_chilimonitoring.ui.tracking.TrackingViewModelFactory
 import java.util.Calendar
 
-class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener  {
+class UpdateTrackingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener  {
     private lateinit var binding: ActivityUpdateTrackingBinding
 
     private var title= ""
@@ -37,11 +29,8 @@ class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
     private var day = 0
     private var month = 0
     private var year = 0
-    private var hour = 0
-    private var minute = 0
 
     private var cleanDate = ""
-    private var cleanTime = ""
     private var idTracking = 0
 
     private lateinit var trackingViewModel: TrackingViewModel
@@ -61,7 +50,6 @@ class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
         trackingViewModel = ViewModelProvider(this, viewModelProviderFactory).get(TrackingViewModel::class.java)
 
         updateUI()
-        Log.d("UpdateTrackingActivity", "upateTrackingToDB: $title, $description, $timeStamp")
         with(binding){
             pickDateAndTime()
 
@@ -87,7 +75,6 @@ class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
 
                 // Update the habit if all the fields are filled
                 trackingViewModel.updateTracking(tracking)
-                Log.d("UpdateTrackingActivity", "upateTrackingToDB: $tracking")
                 Toast.makeText(this, "Tracking berhasil diperbarui!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@UpdateTrackingActivity, MainActivity::class.java).apply {
                     putExtra("navigateTo", R.id.navigation_tracking)
@@ -121,7 +108,6 @@ class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
             with(binding){
                 idTracking = it.id
                 timeStamp = it.startTime
-                Log.d("qweqeqe", "updateUI: $timeStamp")
                 title = it.title
                 description = it.description
 
@@ -145,10 +131,6 @@ class UpdateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
         day = cal.get(Calendar.DAY_OF_MONTH)
         month = cal.get(Calendar.MONTH)
         year = cal.get(Calendar.YEAR)
-    }
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        TODO("Not yet implemented")
     }
 
     override fun onDateSet(p0: DatePicker?, yearX: Int, monthX: Int, dayX: Int) {

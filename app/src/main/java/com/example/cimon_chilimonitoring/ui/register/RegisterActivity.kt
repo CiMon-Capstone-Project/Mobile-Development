@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
@@ -112,7 +111,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUI() {
         if (auth.currentUser != null) {
-            Toast.makeText(this@RegisterActivity, "You are Logged in!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RegisterActivity, "Berhasil mendaftar!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
             finish()
         }

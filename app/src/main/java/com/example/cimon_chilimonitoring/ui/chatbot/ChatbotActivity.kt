@@ -2,7 +2,6 @@ package com.example.cimon_chilimonitoring.ui.chatbot
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,15 +9,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cimon_chilimonitoring.BuildConfig
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityChatbotBinding
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.LOADING_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.RECEIVE_ID
 import com.example.cimon_chilimonitoring.helper.chatbotUtils.Constants.SEND_ID
-import com.google.ai.client.generativeai.Chat
-import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.content
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -107,7 +102,6 @@ class ChatbotActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.generatedContent.observe(this) { response ->
-            Log.d("ChatbotActivity", "Generated content observed: $response")
             if (viewModel.initialMessageSent.value == true) {
                 val loadingIndex = chatAdapter.messagesList.indexOfFirst { it.id == LOADING_ID }
                 if (loadingIndex != -1) {
@@ -131,18 +125,6 @@ class ChatbotActivity : AppCompatActivity() {
         super.onStop()
         if (!isFinishing) {
             sharedPreferences.edit().clear().apply()
-            Log.d("ChatbotActivityqwe", "onStop: Cleared shared preferences")
         }
     }
-
-//    private fun sendInitialMessage() {
-//        val initialPrompt = "Halo, bisa saya bertanya sesuatu?"
-//        val message = Message(initialPrompt, SEND_ID)
-//        viewModel.addMessage(message)
-//        binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
-//
-//        val loadingMessage = Message(LOADING_MESSAGE, LOADING_ID)
-//        viewModel.addMessage(loadingMessage)
-//        viewModel.sendMessage(initialPrompt)
-//    }
 }

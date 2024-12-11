@@ -86,43 +86,43 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // image manipulation
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
 
     // viewmodel
-    implementation ("androidx.activity:activity-ktx:1.9.3")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation (libs.androidx.activity.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
 
     // uCrop
-    implementation ("com.github.yalantis:ucrop:2.2.8")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation (libs.ucrop)
+    implementation (libs.circleimageview)
 
     // room
-    implementation ("androidx.room:room-runtime:2.6.1")
-    implementation ("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // coroutine support
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation (libs.kotlinx.coroutines.android)
 
     // retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 
     // error handling
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation(libs.logging.interceptor)
 
     // TF Lite
-    implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
-    implementation("com.google.android.gms:play-services-tflite-support:16.1.0")
-    implementation("com.google.android.gms:play-services-tflite-gpu:16.2.0")
-    implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.2")
-    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
+    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.play.services.tflite.support)
+    implementation(libs.play.services.tflite.gpu)
+    implementation(libs.tensorflow.lite.task.vision.play.services)
+    implementation(libs.tensorflow.lite.gpu)
 
     // chatbot
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation(libs.generativeai)
 
     // data store
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.androidx.datastore.preferences)
 
     // firebase related
     implementation(libs.firebase.auth)
@@ -132,5 +132,5 @@ dependencies {
     implementation(libs.googleid)
 
     // splash screen animation
-    implementation ("com.airbnb.android:lottie:6.6.0")
+    implementation (libs.lottie)
 }

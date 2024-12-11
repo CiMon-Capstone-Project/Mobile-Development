@@ -2,12 +2,10 @@ package com.example.cimon_chilimonitoring.ui.forum.addPost
 
 import android.Manifest
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -24,12 +22,8 @@ import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.databinding.ActivityAddPostBinding
 import com.example.cimon_chilimonitoring.helper.ImageUtils.getImageUri
-import com.example.cimon_chilimonitoring.helper.ImageUtils.reduceFileImage
 import com.example.cimon_chilimonitoring.helper.ImageUtils.uriToFile
 import com.example.cimon_chilimonitoring.helper.ViewModelFactory
-import com.example.cimon_chilimonitoring.ui.detection.DetectionViewModel
-import com.example.cimon_chilimonitoring.ui.forum.ForumFragment
-import com.google.gson.Gson
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
 import kotlinx.coroutines.launch
@@ -149,14 +143,11 @@ class AddPostActivity : AppCompatActivity() {
             if (resultUri != null) {
                 currentImageUri = resultUri
                 viewModel.setCurrentImageUri(resultUri)
-                Log.d("DetectionFragment", "Image URI: $currentImageUri")
                 showImage()
             } else {
-                Log.d("DetectionFragment", "Crop failed, resultUri is null")
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
-            Log.e("UCrop", "Crop error: ${cropError?.message}")
         }
     }
 

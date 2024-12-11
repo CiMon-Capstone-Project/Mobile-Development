@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,7 +107,6 @@ class HomeFragment : Fragment() {
                         createdAt = blogEntity.created_at
                     )
                 }
-                Log.d("BlogFragment", "Blogs from DB: $blogs")
                 adapter.submitList(blogs)
             }
         }
@@ -122,9 +120,9 @@ class HomeFragment : Fragment() {
 
         tabLayout.setupWithViewPager(viewPager, true)
         val stringList = ArrayList<Int>()
-        stringList.add(R.drawable.banner_hero_1)
-        stringList.add(R.drawable.banner_hero_2)
-        stringList.add(R.drawable.banner_3)
+        stringList.add(R.drawable.banner_1)
+        stringList.add(R.drawable.banner_2)
+        stringList.add(R.drawable.banner_hero_3)
         viewPager.adapter = SliderAdapter(requireContext(), stringList)
         tabLayout.setupWithViewPager(viewPager, true)
 
@@ -148,18 +146,6 @@ class HomeFragment : Fragment() {
             }
         }, DELAY_MS, PERIOD_MS)
     }
-
-    // image slider gjd dipake aku bikin manual
-//    private fun setupImageSlider() {
-//        val imageSlider = binding.isHeroBanner
-//        val imageList = ArrayList<SlideModel>()
-//
-//        imageList.add(SlideModel(R.drawable.banner_1, null, ScaleTypes.FIT))
-//        imageList.add(SlideModel(R.drawable.banner_2, null, ScaleTypes.FIT))
-//        imageList.add(SlideModel(R.drawable.banner_3, null, ScaleTypes.FIT))
-//
-//        imageSlider.setImageList(imageList, ScaleTypes.FIT)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

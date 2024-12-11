@@ -31,7 +31,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="96dp"
         android:backgroundTint="@color/green"
-        android:contentDescription="tambah ke forum"
+        android:contentDescription="@string/add_to_forum_desc"
         android:src="@drawable/ic_edit_24"
         app:fabCustomSize="70dp"
         app:fabSize="auto"

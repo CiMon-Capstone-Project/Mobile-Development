@@ -2,8 +2,6 @@ package com.example.cimon_chilimonitoring.ui.forum
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -17,7 +15,6 @@ import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItem
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewForumBinding
-import com.example.cimon_chilimonitoring.helper.OnEventClickListener
 import com.example.cimon_chilimonitoring.ui.forum.ForumFragment.Companion.REQUEST_CODE_UPDATE_POST
 import com.example.cimon_chilimonitoring.ui.forum.updatePost.UpdatePostActivity
 import java.io.Serializable
@@ -45,13 +42,7 @@ class ForumAdapter(private val viewModel: ForumViewModel) : ListAdapter<ResultsI
 
                 // more
                 ivMoreVert.setOnClickListener {
-                    val id = stories.id
-                    val userId = stories.userId
                     val firebaseEmail = TokenManager.email
-                    val token = TokenManager.idToken
-//                    Toast.makeText(itemView.context, "Delete ID: $id, User ID: $userId", Toast.LENGTH_SHORT).show()
-                    Log.d("ForumAdapter", "article id is ${stories.userId} and $firebaseEmail")
-//                    ${viewModel.listStory.value?.filter { it.userId == stories.userId }}
                     val popupMenu = PopupMenu(itemView.context, it)
                     popupMenu.menuInflater.inflate(R.menu.menu_forum, popupMenu.menu)
                     popupMenu.setOnMenuItemClickListener { menuItem ->
@@ -72,8 +63,6 @@ class ForumAdapter(private val viewModel: ForumViewModel) : ListAdapter<ResultsI
                             }
                             R.id.menu_update -> {
                                 if (stories.email == firebaseEmail) {
-                                    val filteredStories = viewModel.listStory.value?.filter { it.userId == stories.userId }
-                                    Log.d("ForumAdapter", "article id is ${viewModel.listStory.value?.filter { it.userId == stories.userId }}")
                                     val intent = Intent(itemView.context, UpdatePostActivity::class.java).apply {
                                         putExtra("STORY_OBJECT", stories as Serializable)
                                     }

@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewHistoryBinding
-import com.example.cimon_chilimonitoring.ui.blog.detail.BlogDetailActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryDetailActivity.Companion.EXTRA_HISTORY
 import java.text.SimpleDateFormat
 import java.util.Locale

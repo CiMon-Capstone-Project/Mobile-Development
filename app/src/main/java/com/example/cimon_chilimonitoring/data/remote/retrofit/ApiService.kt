@@ -1,7 +1,5 @@
 package com.example.cimon_chilimonitoring.data.remote.retrofit
 
-import com.example.cimon_chilimonitoring.data.remote.response.BlogResponse
-import com.example.cimon_chilimonitoring.data.remote.response.DeleteArticlesResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetArticleResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetBlogResponse
 import com.example.cimon_chilimonitoring.data.remote.response.GetHistoryResponse
@@ -10,8 +8,6 @@ import com.example.cimon_chilimonitoring.data.remote.response.LoginResponse
 import com.example.cimon_chilimonitoring.data.remote.response.PostArticlesResponse
 import com.example.cimon_chilimonitoring.data.remote.response.PostDetectionResponse
 import com.example.cimon_chilimonitoring.data.remote.response.RegisterResponse
-import com.example.cimon_chilimonitoring.data.remote.response.SaveDetectionResponse
-import com.example.cimon_chilimonitoring.data.remote.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.DELETE
@@ -26,9 +22,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-
-//    @GET("events?active=1")
-//    fun getEvents(): Call<EventResponse>
 
     // register
     @FormUrlEncoded
@@ -96,26 +89,8 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): PostDetectionResponse
 
-    // get history
-//    @GET("detection")
-//    suspend fun getHistory(
-//    ): GetHistoryResponse
-
     @GET("detection")
     suspend fun getHistory(
         @Query("page") page: Int
     ): GetHistoryResponse
-
-
-//    // get story by id
-//    @GET("stories/{id}")
-//    fun getStoryDetail(@Path("id") storyId: String): Call<StoryByIDResponse>
-
-//    // add story
-//    @Multipart
-//    @POST("stories")
-//    suspend fun uploadImage(
-//        @Part file: MultipartBody.Part,
-//        @Part ("description") description: RequestBody,
-//    ) : FileUploadResponse
 }

@@ -1,7 +1,6 @@
 package com.example.cimon_chilimonitoring.ui.detection
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +18,6 @@ class DetectionViewModel : ViewModel() {
 
     fun setCurrentImageUri(uri: Uri?) {
         _currentImageUri.value = uri
-        Log.d("DetectionViewModel", "setCurrentImageUri: $uri")
     }
 
     suspend fun getTreatments(token: String, id: Int) {
@@ -28,7 +26,6 @@ class DetectionViewModel : ViewModel() {
         try {
             val response = ApiConfig.getApiService(token).getTreatments(id)
             _listTreatments.value = response.data?.treatments?.let { listOf(it) }
-            Log.d("ForumViewModel", "getStory: ${response.data?.treatments}")
         } catch (e: Exception) {
             _listTreatments.value = null
         } finally {

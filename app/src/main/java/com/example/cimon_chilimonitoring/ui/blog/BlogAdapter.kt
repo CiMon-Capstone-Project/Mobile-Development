@@ -2,7 +2,6 @@ package com.example.cimon_chilimonitoring.ui.blog
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
@@ -10,11 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cimon_chilimonitoring.data.remote.response.ListStory
-import com.example.cimon_chilimonitoring.data.remote.response.Results
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.databinding.ItemCardViewBlogBinding
-import com.example.cimon_chilimonitoring.helper.OnEventClickListener
 import com.example.cimon_chilimonitoring.ui.blog.detail.BlogDetailActivity
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -48,8 +44,6 @@ class BlogAdapter : ListAdapter<ResultsItemBlog, BlogAdapter.MyViewHolder>(DIFF_
                 .load(blog.imageUrl)
                 .into(binding.imgPoster)
             itemView.setOnClickListener {
-//                val intent = Intent(Intent.ACTION_VIEW)
-//                intent.data = Uri.parse(blog.imageUrl)
                 val intent = Intent(itemView.context, BlogDetailActivity::class.java).apply {
                     putExtra(BlogDetailActivity.EXTRA_BLOG, blog)
                 }
