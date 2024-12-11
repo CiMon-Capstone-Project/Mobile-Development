@@ -45,11 +45,11 @@ A platform for farmers to share experiences, tips, and solutions for caring for 
 Allows farmers to record and monitor the growth and development of their chili plants independently, creating a personalized growth diary.
 
 ## **Instalation and Instruction**
-Our application is based on Android OS. In order to use our application, you will need an Android device that can runs at least Android OS Version 8.0 (Oreo). You can download our application (.apk) from the release tab on github or by link down below.
+Our application is based on Android OS. In order to use our application, you will need an Android device that can runs at least Android OS Version 8.0 (Oreo). You can download our application (.apk) from the release tab on github or by link down below. <br>
 
 [CiMon APK Stable v1.0.0](https://github.com/CiMon-Capstone-Project/Mobile-Development/releases/tag/V1.0.0-stable)
 
-We designing our app using figma. Here are the link of the Grand design, Lo-Fi, Hi-Fi, Prototype, and more.
+We designing our app using figma. Here are the link of the Grand design, Lo-Fi, Hi-Fi, Prototype, and more. <br>
 [CiMon Figma](https://www.figma.com/design/1WbH8Mr0UFSYiHrvQGHxNu/PROJECT-CiMon?node-id=0-1)
 
 ## **Depedency used :**
