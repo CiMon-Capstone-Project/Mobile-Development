@@ -15,6 +15,7 @@
   - Cloud Computing: The authentication APIs provided by Cloud Computing are used for forum, detection, blog, and other related functionalities.
   - Retrofit to retrieve API response and integrate it into the app, allowing seamless synchronization of data between the local Room database and remote servers for a consistent user experience.
   - Glide as image loading and caching library for efficient handling of images in your application.
+  - uCrop Yalantis to crop an image based on respective resolution
   - TFLite to implement embedded machine learning model
   - Gemini API to implement chatbot feature utilizing Gemini AI
   - Coroutine support allowing background process to make apk run smoothly
