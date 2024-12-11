@@ -26,7 +26,7 @@ class HistoryDetailActivity : AppCompatActivity() {
         val history = intent.getParcelableExtra<HistoryEntity>(EXTRA_HISTORY)
         history?.let {
             with(binding){
-                tvResultText.text = when (it.result) {
+                tvResultText.text = when (it.result?.trim()) {
                     "cercospora" -> "Cercospora"
                     "nutritional" -> "Nutritional Deficiency / Kekurangan Nutrisi"
                     "mites_and_trips" -> "Mites and Trips"
