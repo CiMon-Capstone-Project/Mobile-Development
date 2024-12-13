@@ -14,7 +14,6 @@ import androidx.core.widget.addTextChangedListener
 import com.example.cimon_chilimonitoring.MainActivity
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.databinding.ActivityLoginBinding
-import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
 import com.example.cimon_chilimonitoring.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
@@ -104,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(){
         if (auth.currentUser != null){
-            Toast.makeText(this@LoginActivity, "You are Logged in!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginActivity, "Berhasil masuk!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }

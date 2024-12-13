@@ -13,7 +13,7 @@
         android:background="@drawable/send_round_box"
         android:backgroundTint="@color/light_green"
         android:padding="14dp"
-        android:text="This is a sample message that will appear"
+        android:text="@string/sample_response"
         android:textColor="@android:color/white"
         android:textSize="@dimen/normal_text" />
 
@@ -27,7 +27,7 @@
         android:background="@drawable/receive_round_box"
         android:backgroundTint="@color/green"
         android:padding="14dp"
-        android:text="This is a sample message that will appear"
+        android:text="@string/sample_response_bot"
         android:textColor="@android:color/white"
         android:textSize="@dimen/normal_text" />
 

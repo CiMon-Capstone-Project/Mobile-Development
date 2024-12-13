@@ -25,7 +25,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_account_circle_24"
-                android:contentDescription="profile_image"
+                android:contentDescription="@string/profile_image"
                 android:layout_marginEnd="8dp"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/Widget.AppCompat.ActionBar.Solid"/>
@@ -34,7 +34,7 @@
                 android:id="@+id/tv_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile Name"
+                android:text="@string/text_profile_name"
                 android:textSize="16sp"
                 android:layout_weight="1"
                 android:textStyle="bold"/>
@@ -44,7 +44,7 @@
                 android:layout_width="20dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_more_vert_24"
-                android:contentDescription="more"
+                android:contentDescription="@string/more_action"
                 android:layout_marginEnd="0dp"
                 android:layout_gravity="end|center_vertical"
                 android:scaleType="centerCrop"
@@ -57,14 +57,14 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/banner_placeholder"
-            android:contentDescription="image_placeholder"
+            android:contentDescription="@string/image_placeholder"
             android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tv_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title_text_area"
             android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -82,7 +82,7 @@
             android:layout_marginStart="12dp"
             android:textAlignment="textStart"
             android:maxLines="3"
-            android:text="description"
+            android:text="@string/description_text"
             android:fontFamily="@font/inter"
             android:textSize="16sp"
             android:layout_marginTop="6dp"

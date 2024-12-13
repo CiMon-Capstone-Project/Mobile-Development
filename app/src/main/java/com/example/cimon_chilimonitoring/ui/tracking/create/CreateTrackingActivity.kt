@@ -19,7 +19,7 @@ import com.example.cimon_chilimonitoring.ui.tracking.TrackingViewModel
 import com.example.cimon_chilimonitoring.ui.tracking.TrackingViewModelFactory
 import java.util.Calendar
 
-class CreateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+class CreateTrackingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: ActivityCreateTrackingBinding
 
     private var title= ""
@@ -29,11 +29,8 @@ class CreateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
     private var day = 0
     private var month = 0
     private var year = 0
-    private var hour = 0
-    private var minute = 0
 
     private var cleanDate = ""
-    private var cleanTime = ""
 
     private lateinit var trackingViewModel: TrackingViewModel
 
@@ -93,14 +90,6 @@ class CreateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
         }
     }
 
-    //get the time set
-//    override fun onTimeSet(TimePicker: TimePicker?, p1: Int, p2: Int) {
-//        Log.d("Fragment", "Time: $p1:$p2")
-//
-//        cleanTime = Calculations.cleanTime(p1, p2)
-//        tv_timeSelected.text = "Time: $cleanTime"
-//    }
-
     //get the date set
     override fun onDateSet(p0: DatePicker?, yearX: Int, monthX: Int, dayX: Int) {
         cleanDate = Calculations.cleanDate(dayX, monthX, yearX)
@@ -113,9 +102,5 @@ class CreateTrackingActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
         day = cal.get(Calendar.DAY_OF_MONTH)
         month = cal.get(Calendar.MONTH)
         year = cal.get(Calendar.YEAR)
-    }
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        TODO("Not yet implemented")
     }
 }

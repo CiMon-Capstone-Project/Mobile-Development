@@ -1,6 +1,5 @@
 package com.example.cimon_chilimonitoring
 
-import android.app.Activity
 import android.app.ActivityOptions
 import android.app.ProgressDialog
 import android.content.Context
@@ -11,30 +10,18 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.credentials.ClearCredentialStateRequest
-import androidx.credentials.CredentialManager
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
-import com.example.cimon_chilimonitoring.data.local.room.HistoryDao
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
 import com.example.cimon_chilimonitoring.data.local.room.blog.BlogDao
-import com.example.cimon_chilimonitoring.data.local.room.tracking.TrackingDao
 import com.example.cimon_chilimonitoring.databinding.ActivityMainBinding
 import com.example.cimon_chilimonitoring.ui.chatbot.ChatbotActivity
 import com.example.cimon_chilimonitoring.ui.detection.history.HistoryActivity
@@ -44,15 +31,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import kotlinx.coroutines.launch
-
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var blogDao: BlogDao
 
     // networking
     private lateinit var connectivityManager: ConnectivityManager
@@ -106,10 +90,8 @@ class MainActivity : AppCompatActivity() {
                             TokenManager.idToken = idToken
                             TokenManager.userId = firebaseUser.uid
                             TokenManager.email = firebaseUser.email
-                            Log.d("MainActivity", "User token: $idToken, User ID: ${firebaseUser.uid}")
                         }
                     } else {
-                        Log.e("MainActivity", "Failed to get user token", task.exception)
                         Toast.makeText(this, "Tidak ada koneksi Internet", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -134,12 +116,10 @@ class MainActivity : AppCompatActivity() {
                                 TokenManager.idToken = idToken
                                 TokenManager.userId = firebaseUser.uid
                                 TokenManager.email = firebaseUser.email
-                                Log.d("MainActivity", "User token: $idToken, User ID: ${firebaseUser.uid}")
                                 Toast.makeText(this@MainActivity, "Terhubung ke internet", Toast.LENGTH_SHORT).show()
                                 recreate()
                             }
                         } else {
-                            Log.e("MainActivity", "Failed to get user token", task.exception)
                         }
                     }
                 }
@@ -159,8 +139,6 @@ class MainActivity : AppCompatActivity() {
         val historyIcon = menu.findItem(R.id.menu_history)
         val chatbotIcon = menu.findItem(R.id.menu_chat)
         val accountIcon = menu.findItem(R.id.menu_account)
-        val deleteIcon = menu.findItem(R.id.menu_delete)
-//        val searchView = historyIcon?.actionView as? SearchView
 
         // icon clicked
         historyIcon?.setOnMenuItemClickListener {
@@ -178,7 +156,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         accountIcon?.setOnMenuItemClickListener {
-//            signOut()
             val intent = Intent(this, ProfileActivity::class.java)
             val options = ActivityOptions.makeSceneTransitionAnimation(this)
             startActivity(intent, options.toBundle())

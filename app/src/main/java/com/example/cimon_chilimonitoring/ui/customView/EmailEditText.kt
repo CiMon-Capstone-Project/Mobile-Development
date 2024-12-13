@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
@@ -20,7 +19,6 @@ class EmailEditText @JvmOverloads constructor(
     private var clearButton: Drawable
     val startIconImage =
         ContextCompat.getDrawable(context, R.drawable.ic_baseline_email_24) as Drawable
-    val customMargin = resources.getDimensionPixelSize(R.dimen.margin_start)
 
     init {
         clearButton = ContextCompat.getDrawable(context, R.drawable.ic_close_24) as Drawable

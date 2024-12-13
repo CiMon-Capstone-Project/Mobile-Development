@@ -9,7 +9,6 @@ import android.provider.MediaStore
 import android.util.Log
 import com.example.cimon_chilimonitoring.R
 import com.example.cimon_chilimonitoring.ml.FinalModelMetadataV2
-import com.example.cimon_chilimonitoring.ml.Model
 import com.google.android.gms.tflite.client.TfLiteInitializationOptions
 import com.google.android.gms.tflite.gpu.support.TfLiteGpu
 import org.tensorflow.lite.DataType
@@ -18,7 +17,6 @@ import org.tensorflow.lite.support.common.ops.CastOp
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.gms.vision.TfLiteVision
 import org.tensorflow.lite.task.gms.vision.classifier.Classifications
@@ -48,11 +46,9 @@ class ImageClassifierHelper(
             TfLiteVision.initialize(context, optionsBuilder.build())
         }.addOnSuccessListener {
             setupImageClassifier()
-//            (context as? MainActivity)?.isLoading?.postValue(false)
         }
             .addOnFailureListener {
                 classifierListener?.onError(context.getString(R.string.tflitevision_is_not_initialized_yet))
-//                (context as? MainActivity)?.isLoading?.postValue(false)
             }
     }
 

@@ -1,9 +1,6 @@
 package com.example.cimon_chilimonitoring.ui.detection.history
 
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -15,20 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cimon_chilimonitoring.R
-import com.example.cimon_chilimonitoring.data.local.entity.BlogEntity
 import com.example.cimon_chilimonitoring.data.local.entity.HistoryEntity
 import com.example.cimon_chilimonitoring.data.local.pref.TokenManager
-import com.example.cimon_chilimonitoring.data.local.repository.BlogRepo
 import com.example.cimon_chilimonitoring.data.local.repository.HistoryRepo
 import com.example.cimon_chilimonitoring.data.local.room.HistoryDatabase
-import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemBlog
 import com.example.cimon_chilimonitoring.data.remote.response.ResultsItemHistory
 import com.example.cimon_chilimonitoring.databinding.ActivityHistoryBinding
 import com.example.cimon_chilimonitoring.helper.ViewModelFactory
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.net.URL
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
@@ -89,13 +80,12 @@ class HistoryActivity : AppCompatActivity() {
             if (token != null) {
                 historyViewModel.detectPages(token)
                 historyViewModel.getHistory(token)
-                Log.e("HistoryACtivity", "Token is $token")
                 historyViewModel.listStory.observe(this@HistoryActivity) { stories ->
 //                    adapter.submitList(stories)
                     stories?.let { saveToDatabase(it) }
                 }
             } else {
-                Log.e("HistoryACtivity", "Token is null")
+                Toast.makeText(this@HistoryActivity, "Token tidak ditemukan", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -134,5 +124,4 @@ class HistoryActivity : AppCompatActivity() {
         }
         blogRepo.saveHistoryToDatabase(historyEntities)
     }
-
 }

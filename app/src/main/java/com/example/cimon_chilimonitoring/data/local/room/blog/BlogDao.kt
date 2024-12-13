@@ -15,7 +15,6 @@ interface BlogDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertBlog(blog: BlogEntity)
 
-    // suspend function untuk mendukung Coroutines
     @Update
     suspend fun updateNews(news: BlogEntity)
 

@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Tidak ada tracking"
+        android:text="@string/no_tracking_text"
         android:id="@+id/no_tracking_text"
         android:visibility="gone"
         android:layout_marginBottom="24dp"
@@ -44,7 +44,7 @@
         app:fabCustomSize="70dp"
         app:fabSize="auto"
         app:tint="@android:color/white"
-        android:contentDescription="Tambah Tracking"
+        android:contentDescription="@string/add_track_desc"
         android:backgroundTint="@color/green"
         android:layout_marginBottom="96dp"/>
 
@@ -57,7 +57,7 @@
         android:src="@drawable/ic_delete_sweep_24"
         app:tint="@android:color/white"
         android:layout_marginBottom="176dp"
-        android:contentDescription="Hapus semua"
+        android:contentDescription="@string/text_hapus_semua"
         android:backgroundTint="@color/rose_red"
         android:layout_marginTop="16dp"/>
 

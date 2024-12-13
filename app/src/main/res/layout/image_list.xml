@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="160dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
@@ -16,14 +16,12 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:layout_width="380dp"
-            android:layout_height="160dp"
-            android:contentDescription="hero banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/hero_banner"
             android:scaleType="centerCrop"
-            android:src="@drawable/banner_hero_1"
+            android:src="@drawable/banner_1"
             android:id="@+id/iv_banner"/>
-
-
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

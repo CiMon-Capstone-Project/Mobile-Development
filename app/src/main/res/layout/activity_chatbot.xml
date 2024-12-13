@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        app:title="Chatbot"
+        app:title="@string/app_bar_chatbot"
         app:navigationIcon="@drawable/ic_arrow_back_ios_24"
         tools:ignore="MissingConstraints" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/ed_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan prompt"
+            android:hint="@string/text_prompt"
             android:inputType="text"
             android:ems="3"
             tools:ignore="SpeakableTextPresentCheck"
@@ -56,7 +56,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@android:color/transparent"
-        android:contentDescription="send"
+        android:contentDescription="@string/send_prompt"
         android:src="@drawable/ic_send_24"
         app:layout_constraintBottom_toBottomOf="@id/til_question"
         app:layout_constraintEnd_toEndOf="parent"
