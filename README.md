@@ -1,4 +1,6 @@
 # **🌶 CiMon - Chili Monitoring 🌶**
+![image](https://github.com/user-attachments/assets/c6b92d42-2a04-4fe7-a68b-b0c50aa57c6c) <br>
+
 🌶 **CiMon** is an application designed to assist chili farmers 👩‍🌾👨‍🌾 in detecting diseases in their plants quickly and accurately using image recognition technology. By leveraging a smartphone camera 📸, users can capture photos of diseased chili plant leaves 🌿. CiMon offers several features that are incredibly helpful for both beginner and experienced farmers, including the following:
 
 ## **Tech Stacks**
