@@ -24,8 +24,6 @@
   - Lottie Library to allow animation to be played on splash screen
 
 ## **Flow of the Apps**
-![Screenshot 2024-12-12 200259](https://github.com/user-attachments/assets/97b3d8ba-9ee7-44b3-96b7-0da0021fed07) <br>
-
 1. User Interface: An attractive, dynamic, and user-friendly interface is created using XML layout files. The interface is designed to provide a smooth and intuitive experience for users.
 2. User Authentication: The application integrates with Firebase Authentication allowing user to register with email or with google account. Users can register and log in to the application securely using their own private credentials.
 3. Article Forum Retrieval: The application sends requests to APIs that provide articles or forum from others user allowing the app to be semi-media social. These APIs are utilized to retrieve the necessary information for display purposes.
@@ -34,6 +32,7 @@
 6. Offline Functionality: Application mostly integrated with Room Database to store any API's that successfuly fetched to be used when connection lost
 
 ## **Main Features**
+![Screenshot 2024-12-12 200259](https://github.com/user-attachments/assets/97b3d8ba-9ee7-44b3-96b7-0da0021fed07) <br>
 1. Diseases Detection 🔍: <br>
    Analyzes images of diseased chili plant leaves to provide an initial diagnosis.
 
